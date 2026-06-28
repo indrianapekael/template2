@@ -1,0 +1,286 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+// Calculate reading time
+const readingTime = Math.ceil(post.body.split(' ').length / 200);
+
+// Format date
+const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+const updatedDate = post.data.updatedDate?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  article={{
+    publishedTime: post.data.pubDate.toISOString(),
+    modifiedTime: post.data.updatedDate?.toISOString(),
+    author: post.data.author,
+    tags: post.data.tags
+  }}
+>
+  <Header />
+
+  <main id="main" class="main-content">
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <GlassPanel variant="solid" padding="xl" className="post-header">
+          <h1 class="post-title">{post.data.title}</h1>
+
+          <div class="post-meta">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {formattedDate}
+            </time>
+            {updatedDate && (
+              <>
+                <span class="separator">·</span>
+                <span>Updated {updatedDate}</span>
+              </>
+            )}
+            <span class="separator">·</span>
+            <span>{readingTime} min read</span>
+            {post.data.author && (
+              <>
+                <span class="separator">·</span>
+                <span>By {post.data.author}</span>
+              </>
+            )}
+          </div>
+
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="post-tags">
+              {post.data.tags.map((tag) => (
+                <a href={`/tags/${tag}`} class="tag glass-badge">
+                  {tag}
+                </a>
+              ))}
+            </div>
+          )}
+        </GlassPanel>
+
+        <!-- Hero Image -->
+        {post.data.heroImage && (
+          <div class="post-hero-image">
+            <img
+              src={post.data.heroImage}
+              alt={post.data.heroImageAlt || post.data.title}
+              loading="eager"
+            />
+          </div>
+        )}
+
+        <!-- Post Content -->
+        <GlassPanel variant="solid" padding="xl" className="post-content">
+          <div class="prose">
+            <Content />
+          </div>
+        </GlassPanel>
+
+        <!-- Post Footer -->
+        <GlassPanel variant="default" padding="lg" className="post-footer">
+          <div class="share-section">
+            <h3>Share this post</h3>
+            <div class="share-buttons">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="share-button glass-button"
+                aria-label="Share on Twitter"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                </svg>
+                Twitter
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="share-button glass-button"
+                aria-label="Share on LinkedIn"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </GlassPanel>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .main-content {
+    min-height: 100vh;
+  }
+
+  .blog-post {
+    padding: var(--space-2xl) 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Post Header */
+  .post-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .post-title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: var(--space-lg);
+    background: linear-gradient(
+      135deg,
+      var(--color-text),
+      var(--color-accent)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .separator {
+    opacity: 0.5;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  .tag {
+    font-size: var(--text-sm);
+    text-decoration: none;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+  }
+
+  .tag:hover {
+    color: var(--color-accent);
+    background: var(--color-accent-glass);
+  }
+
+  /* Hero Image */
+  .post-hero-image {
+    margin-bottom: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .post-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Post Content */
+  .post-content {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .prose {
+    font-size: var(--text-base);
+    line-height: 1.8;
+  }
+
+  /* Post Footer */
+  .post-footer {
+    margin-top: var(--space-3xl);
+  }
+
+  .share-section h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .share-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+  }
+
+  .share-button:hover {
+    background: var(--color-accent-glass);
+    color: var(--color-accent);
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .post-title {
+      font-size: var(--text-3xl);
+    }
+
+    .post-meta {
+      font-size: var(--text-xs);
+    }
+
+    .blog-post {
+      padding: var(--space-lg) 0;
+    }
+  }
+</style>
