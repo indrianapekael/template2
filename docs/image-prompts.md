@@ -31,29 +31,13 @@
 
 ### ~~public/images/projects/interval-progress.webp~~ — ✅ 配置済み
 
-### public/images/projects/afterlight-cover.webp — 1600×1000 (WebP)
+### ~~public/images/projects/afterlight-cover.webp~~ — ✅ 配置済み
 
-```
-An atmospheric cultural-archive interface on dark glass: an oral-history audio player with a transcript on the left, beside elegant collection photography of artifacts on the right. Moody and reverent. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1000.
-```
+### ~~public/images/projects/afterlight-story.webp~~ — ✅ 配置済み
 
-### public/images/projects/afterlight-story.webp — 1600×1200 (WebP)
+### ~~public/images/projects/afterlight-map.webp~~ — ✅ 配置済み
 
-```
-An immersive oral-history story page: a waveform audio player, flowing transcript text, and small related artifact thumbnails. Dark and cinematic. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1200.
-```
-
-### public/images/projects/afterlight-map.webp — 1600×1200 (WebP)
-
-```
-An interactive map view on dark glass with glowing location pins that connect places to archive entries, with thin lines showing the relationships between them. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1200.
-```
-
-### public/images/projects/afterlight-collection.webp — 1600×1200 (WebP)
-
-```
-A gallery of archived objects shown as frosted cards with museum-quality photography and subtle metadata captions, in a refined grid. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1200.
-```
+### ~~public/images/projects/afterlight-collection.webp~~ — ✅ 配置済み
 
 ---
 
