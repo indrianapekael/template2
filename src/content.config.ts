@@ -125,22 +125,4 @@ const landing = defineCollection({
   }),
 });
 
-// Team members — data (optional)
-const team = defineCollection({
-  loader: glob({ pattern: '**/*.{json,yaml,yml}', base: './src/content/team' }),
-  schema: z.object({
-    name: z.string(),
-    role: z.string(),
-    bio: z.string(),
-    avatar: z.string(),
-    social: z
-      .object({
-        twitter: z.string().optional(),
-        linkedin: z.string().optional(),
-        github: z.string().optional(),
-      })
-      .optional(),
-  }),
-});
-
-export const collections = { blog, projects, landing, team };
+export const collections = { blog, projects, landing };
