@@ -5,7 +5,6 @@ import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
 import GlassPanel from '@/components/common/GlassPanel.astro';
-import siteConfig from '@/site.config';
 
 // Get all blog posts
 const posts = await getCollection('blog', ({ data }) => {
@@ -20,7 +19,7 @@ const sortedPosts = posts.sort((a, b) =>
 // Calculate reading time (rough estimate)
 const postsWithReadingTime = sortedPosts.map(post => ({
   ...post,
-  readingTime: Math.ceil(post.body.split(' ').length / 200)
+  readingTime: Math.ceil((post.body ?? '').split(/\s+/).filter(Boolean).length / 200)
 }));
 
 // Get featured posts
@@ -60,7 +59,7 @@ const regularPosts = postsWithReadingTime.filter(post => !post.data.featured);
                 pubDate={post.data.pubDate}
                 heroImage={post.data.heroImage}
                 tags={post.data.tags}
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.id}`}
                 readingTime={post.readingTime}
               />
             ))}
@@ -89,7 +88,7 @@ const regularPosts = postsWithReadingTime.filter(post => !post.data.featured);
                 pubDate={post.data.pubDate}
                 heroImage={post.data.heroImage}
                 tags={post.data.tags}
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.id}`}
                 readingTime={post.readingTime}
               />
             ))}

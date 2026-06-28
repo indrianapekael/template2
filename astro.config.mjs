@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://astro-haze.pages.dev',
-  integrations: [],
+  integrations: [sitemap()],
   output: 'static',
   build: {
     format: 'directory',
@@ -20,10 +21,8 @@ export default defineConfig({
     },
     format: ['avif', 'webp']
   },
-  markdown: {
-    // Sätteri is default in Astro 7, no config needed
-    gfm: true
-  },
+  // Markdown is handled by Sätteri (Astro 7 default). GFM — tables, task
+  // lists, footnotes — is enabled out of the box, so no config is needed.
   server: {
     port: 3000,
     host: true

@@ -158,7 +158,7 @@
   toggle?.addEventListener('click', cycleTheme);
 
   // Listen for system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
     const theme = getThemePreference();
     if (theme === 'system') {
       applyTheme('system');
