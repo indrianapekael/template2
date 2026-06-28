@@ -1,0 +1,167 @@
+---
+// Theme toggle component with FOUC prevention
+---
+
+<button
+  id="theme-toggle"
+  class="theme-toggle glass-button"
+  type="button"
+  aria-label="Toggle color theme"
+  title="Toggle color theme"
+>
+  <svg class="icon icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <svg class="icon icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+  <svg class="icon icon-system" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+    <line x1="8" y1="21" x2="16" y2="21"></line>
+    <line x1="12" y1="17" x2="12" y2="21"></line>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+  }
+
+  .theme-toggle:hover {
+    background: var(--glass-bg-solid);
+  }
+
+  .icon {
+    position: absolute;
+    transition: opacity var(--transition-base), transform var(--transition-base);
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Default state - system theme */
+  .icon-sun,
+  .icon-moon {
+    opacity: 0;
+    transform: scale(0.8) rotate(-180deg);
+  }
+
+  .icon-system {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+
+  /* Light theme state */
+  [data-theme="light"] .icon-sun {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+
+  [data-theme="light"] .icon-moon,
+  [data-theme="light"] .icon-system {
+    opacity: 0;
+    transform: scale(0.8) rotate(180deg);
+  }
+
+  /* Dark theme state */
+  [data-theme="dark"] .icon-moon {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+
+  [data-theme="dark"] .icon-sun,
+  [data-theme="dark"] .icon-system {
+    opacity: 0;
+    transform: scale(0.8) rotate(180deg);
+  }
+
+  /* Keyboard focus */
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon {
+      transition: opacity var(--transition-base);
+    }
+  }
+</style>
+
+<script>
+  // Theme toggle functionality
+  const toggle = document.getElementById('theme-toggle');
+  const themes = ['system', 'light', 'dark'];
+
+  function getThemePreference(): string {
+    const stored = localStorage.getItem('theme');
+    if (stored && themes.includes(stored)) {
+      return stored;
+    }
+    return 'system';
+  }
+
+  function applyTheme(theme: string) {
+    const root = document.documentElement;
+
+    if (theme === 'system') {
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('theme');
+
+      // Apply system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        root.setAttribute('data-theme', 'dark');
+      }
+    } else {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+  }
+
+  function cycleTheme() {
+    const current = getThemePreference();
+    const currentIndex = themes.indexOf(current);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    const nextTheme = themes[nextIndex];
+
+    applyTheme(nextTheme);
+
+    // Announce change for screen readers
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
+    announcement.textContent = `Theme changed to ${nextTheme}`;
+    document.body.appendChild(announcement);
+
+    setTimeout(() => {
+      announcement.remove();
+    }, 1000);
+  }
+
+  // Set up event listener
+  toggle?.addEventListener('click', cycleTheme);
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    const theme = getThemePreference();
+    if (theme === 'system') {
+      applyTheme('system');
+    }
+  });
+</script>

@@ -1,0 +1,386 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+---
+
+<BaseLayout>
+  <Header />
+
+  <main id="main" class="main-content">
+    <!-- Hero Section -->
+    <section class="hero section">
+      <div class="container">
+        <GlassPanel variant="solid" padding="xl" className="hero-content">
+          <h1 class="hero-title">
+            Welcome to <span class="text-gradient">Astro Haze</span>
+          </h1>
+          <p class="hero-subtitle">
+            A stunning glassmorphism theme for Astro. Perfect for blogs, portfolios, and landing pages.
+          </p>
+          <div class="hero-actions">
+            <a href="/blog" class="button button--primary">
+              Explore Blog
+            </a>
+            <a href="/work" class="button button--secondary">
+              View Portfolio
+            </a>
+          </div>
+        </GlassPanel>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features section">
+      <div class="container">
+        <h2 class="section-title">Three Themes in One</h2>
+        <div class="features-grid">
+          <!-- Blog Feature -->
+          <GlassPanel variant="default" padding="lg" className="feature-card">
+            <div class="feature-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Blog System</h3>
+            <p class="feature-description">
+              Full-featured blog with MDX support, categories, tags, and beautiful glass-styled article cards.
+            </p>
+            <a href="/blog" class="feature-link">
+              Explore Blog →
+            </a>
+          </GlassPanel>
+
+          <!-- Portfolio Feature -->
+          <GlassPanel variant="default" padding="lg" className="feature-card">
+            <div class="feature-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2.25 7.125c0-1.036.84-1.875 1.875-1.875h3.75c1.036 0 1.875.84 1.875 1.875v3.75c0 1.036-.84 1.875-1.875 1.875h-3.75A1.875 1.875 0 012.25 10.875v-3.75zM2.25 15.375c0-1.036.84-1.875 1.875-1.875h3.75c1.036 0 1.875.84 1.875 1.875v3.75c0 1.036-.84 1.875-1.875 1.875h-3.75a1.875 1.875 0 01-1.875-1.875v-3.75zM10.5 7.125c0-1.036.84-1.875 1.875-1.875h7.5c1.036 0 1.875.84 1.875 1.875v3.75c0 1.036-.84 1.875-1.875 1.875h-7.5A1.875 1.875 0 0110.5 10.875v-3.75zM10.5 15.375c0-1.036.84-1.875 1.875-1.875h3.75c1.036 0 1.875.84 1.875 1.875v3.75c0 1.036-.84 1.875-1.875 1.875h-3.75a1.875 1.875 0 01-1.875-1.875v-3.75zM18.75 15.375c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v3.75c0 1.036-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875v-3.75z" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Portfolio Showcase</h3>
+            <p class="feature-description">
+              Display your projects with stunning glass cards, image galleries, and detailed case studies.
+            </p>
+            <a href="/work" class="feature-link">
+              View Portfolio →
+            </a>
+          </GlassPanel>
+
+          <!-- Landing Page Feature -->
+          <GlassPanel variant="default" padding="lg" className="feature-card">
+            <div class="feature-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-5.25 1.65v7.5" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Landing Pages</h3>
+            <p class="feature-description">
+              Convert visitors with glass-morphed hero sections, pricing tables, and testimonials.
+            </p>
+            <a href="/landing" class="feature-link">
+              See Demo →
+            </a>
+          </GlassPanel>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design Features -->
+    <section class="design-features section">
+      <div class="container">
+        <GlassPanel variant="solid" padding="xl">
+          <h2 class="section-title">Beautiful by Design</h2>
+          <div class="design-grid">
+            <div class="design-item">
+              <h4 class="design-title">Glassmorphism UI</h4>
+              <p class="design-description">
+                Every element features beautiful glass effects with customizable blur and transparency.
+              </p>
+            </div>
+            <div class="design-item">
+              <h4 class="design-title">Dark & Light Modes</h4>
+              <p class="design-description">
+                Seamless theme switching with system preference detection and persistent user choice.
+              </p>
+            </div>
+            <div class="design-item">
+              <h4 class="design-title">Fully Responsive</h4>
+              <p class="design-description">
+                Looks stunning on all devices with mobile-first design and adaptive layouts.
+              </p>
+            </div>
+            <div class="design-item">
+              <h4 class="design-title">Lightning Fast</h4>
+              <p class="design-description">
+                Optimized for performance with lazy loading, AVIF images, and minimal JavaScript.
+              </p>
+            </div>
+            <div class="design-item">
+              <h4 class="design-title">Accessible</h4>
+              <p class="design-description">
+                WCAG AA compliant with proper ARIA labels, keyboard navigation, and focus management.
+              </p>
+            </div>
+            <div class="design-item">
+              <h4 class="design-title">SEO Ready</h4>
+              <p class="design-description">
+                Built-in SEO optimization with meta tags, Open Graph, structured data, and sitemaps.
+              </p>
+            </div>
+          </div>
+        </GlassPanel>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta section">
+      <div class="container">
+        <GlassPanel variant="default" padding="xl" className="cta-content">
+          <h2 class="cta-title">Ready to Get Started?</h2>
+          <p class="cta-description">
+            Create your stunning website with Astro Haze today. It's free, open-source, and easy to customize.
+          </p>
+          <div class="cta-actions">
+            <a href="https://github.com/yourusername/astro-haze" class="button button--primary" target="_blank" rel="noopener">
+              Get Theme
+            </a>
+            <a href="/docs" class="button button--secondary">
+              Read Docs
+            </a>
+          </div>
+        </GlassPanel>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .main-content {
+    min-height: 100vh;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: var(--text-5xl);
+    font-weight: 800;
+    margin-bottom: var(--space-lg);
+    line-height: 1.1;
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--aurora-1),
+      var(--aurora-2),
+      var(--aurora-3)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .button--primary {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+  }
+
+  .button--primary:hover {
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .button--secondary {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text);
+    border-color: var(--glass-border);
+  }
+
+  .button--secondary:hover {
+    background: var(--glass-bg-solid);
+    transform: translateY(-2px);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-title {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .feature-card {
+    text-align: center;
+    transition: transform var(--transition-base);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-accent-glass);
+    color: var(--color-accent);
+  }
+
+  .feature-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-description {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .feature-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all var(--transition-fast);
+  }
+
+  .feature-link:hover {
+    transform: translateX(4px);
+  }
+
+  /* Design Grid */
+  .design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .design-item {
+    text-align: center;
+  }
+
+  .design-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .design-description {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  /* CTA Section */
+  .cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-4xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-lg);
+    }
+
+    .section-title {
+      font-size: var(--text-3xl);
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .design-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
