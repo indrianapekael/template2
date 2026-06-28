@@ -23,29 +23,13 @@
 
 ### ~~public/images/projects/fieldnote-timeline.webp~~ — ✅ 配置済み
 
-### public/images/projects/interval-cover.webp — 1600×1000 (WebP)
+### ~~public/images/projects/interval-cover.webp~~ — ✅ 配置済み
 
-```
-A calm health-recovery mobile app on aurora-lit glass showing today's rehabilitation plan: a short list of exercises with checkboxes and a gentle progress ring, reassuring in tone. Soft, private, medical-grade clarity. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1000.
-```
+### ~~public/images/projects/interval-plan.webp~~ — ✅ 配置済み
 
-### public/images/projects/interval-plan.webp — 1600×1200 (WebP)
+### ~~public/images/projects/interval-checkin.webp~~ — ✅ 配置済み
 
-```
-A daily rehabilitation plan screen: exercise cards each with a small illustration, sets and reps, and the clinician's written note preserved beneath. A clear, reduced-motion-friendly layout. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1200.
-```
-
-### public/images/projects/interval-checkin.webp — 1600×1200 (WebP)
-
-```
-A friendly daily check-in screen with a simple "how do you feel" scale, large accessible buttons, and a private notes field. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1200.
-```
-
-### public/images/projects/interval-progress.webp — 1600×1200 (WebP)
-
-```
-A recovery progress screen: a multi-week streak calendar and a soft trend chart, encouraging and low-pressure, on frosted glass. Premium glassmorphism UI: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; clean geometric sans-serif typography; generous whitespace; calm high-end product design aesthetic; dark theme. High detail, crisp, realistic interface, no logos, no watermarks, no gibberish text, legible short labels only. 1600x1200.
-```
+### ~~public/images/projects/interval-progress.webp~~ — ✅ 配置済み
 
 ### public/images/projects/afterlight-cover.webp — 1600×1000 (WebP)
 
