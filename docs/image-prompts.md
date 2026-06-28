@@ -43,27 +43,15 @@
 
 ## ブログ（記事ヒーロー）
 
-### public/images/blog/getting-started.jpg — 1600×900 (JPG)
+### ~~public/images/blog/getting-started.jpg~~ — ✅ 配置済み
 
-```
-An abstract hero illustration: floating translucent glass UI panels and a code-editor-like card assembling together over an aurora gradient, conveying "getting started / setup". Clean and optimistic. Premium glassmorphism aesthetic: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; dark theme. High detail, crisp, no logos, no watermarks, no gibberish text. 1600x900.
-```
-
-### public/images/blog/design-principles.jpg — 1600×900 (JPG)
-
-```
-An abstract editorial hero about design principles: layered frosted glass cards, a soft typographic scale ramp, and color tokens shown as glowing chips, over a blurred aurora backdrop. Elegant. Premium glassmorphism aesthetic: frosted translucent panels with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of each panel; soft ambient shadows; dark theme. High detail, crisp, no logos, no watermarks, no gibberish text. 1600x900.
-```
+### ~~public/images/blog/design-principles.jpg~~ — ✅ 配置済み
 
 ---
 
 ## OG 画像（SNS シェア）
 
-### public/og-image.png — 1200×630 (PNG)
-
-```
-A social-share banner for a web theme. A large frosted glass card centered over a vivid aurora gradient, with the center area left clean and empty so a title can be added later. Minimal and premium glassmorphism: frosted translucent panel with soft gaussian blur over a layered aurora-gradient background of violet, electric blue, magenta and mint green; faint film grain; a thin light highlight along the top edge of the panel; soft ambient shadows; dark theme. No text, no logos, no watermarks. 1200x630.
-```
+### ~~public/og-image.png~~ — ✅ 配置済み
 
 ---
 
