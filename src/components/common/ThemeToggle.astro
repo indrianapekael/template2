@@ -1,5 +1,8 @@
 ---
 // Theme toggle component with FOUC prevention
+import siteConfig from '@/site.config';
+
+const defaultMode = siteConfig.theme.defaultColorMode;
 ---
 
 <button
@@ -8,6 +11,7 @@
   type="button"
   aria-label="Toggle color theme"
   title="Toggle color theme"
+  data-default-mode={defaultMode}
 >
   <svg class="icon icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="5"></circle>
@@ -107,12 +111,15 @@
   const toggle = document.getElementById('theme-toggle');
   const themes = ['system', 'light', 'dark'];
 
+  // Fallback when the visitor has no saved preference, from site.config.
+  const defaultMode = toggle?.dataset.defaultMode ?? 'system';
+
   function getThemePreference(): string {
     const stored = localStorage.getItem('theme');
     if (stored && themes.includes(stored)) {
       return stored;
     }
-    return 'system';
+    return themes.includes(defaultMode) ? defaultMode : 'system';
   }
 
   function applyTheme(theme: string) {

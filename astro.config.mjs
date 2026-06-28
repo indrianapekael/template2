@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import siteConfig from './src/site.config.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://astro-haze.pages.dev',
-  integrations: [sitemap()],
+  // Sitemap generation is gated by the `features.sitemap` flag in site.config.
+  integrations: siteConfig.features.sitemap ? [sitemap()] : [],
   output: 'static',
   build: {
     format: 'directory',

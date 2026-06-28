@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import siteConfig from '@/site.config';
 import Seo from '@/components/common/Seo.astro';
 import AuroraBackground from '@/components/common/AuroraBackground.astro';
 import ThemeToggle from '@/components/common/ThemeToggle.astro';
@@ -40,22 +41,19 @@ const props = Astro.props;
     />
 
     <!-- Theme Script (FOUC Prevention) -->
-    <script is:inline>
-      // Apply theme immediately to prevent FOUC
-      (function() {
-        const stored = localStorage.getItem('theme');
-        const root = document.documentElement;
-
-        if (stored === 'light' || stored === 'dark') {
-          root.setAttribute('data-theme', stored);
-        } else if (!stored || stored === 'system') {
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (prefersDark) {
-            root.setAttribute('data-theme', 'dark');
-          }
-        }
-      })();
-    </script>
+    <script
+      is:inline
+      set:html={`(function(){
+        var stored = localStorage.getItem('theme');
+        var fallback = ${JSON.stringify(siteConfig.theme.defaultColorMode)};
+        var mode = (stored === 'light' || stored === 'dark')
+          ? stored
+          : (fallback === 'light' || fallback === 'dark')
+            ? fallback
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', mode);
+      })();`}
+    />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -72,9 +70,13 @@ const props = Astro.props;
     <slot />
 
     <!-- Theme Toggle (can be positioned by parent) -->
-    <div id="theme-toggle-container">
-      <ThemeToggle />
-    </div>
+    {
+      siteConfig.theme.showThemeToggle && (
+        <div id="theme-toggle-container">
+          <ThemeToggle />
+        </div>
+      )
+    }
   </body>
 </html>
 

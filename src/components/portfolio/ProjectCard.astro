@@ -13,6 +13,8 @@ export interface Props {
   href: string;
   index: number;
   featured?: boolean;
+  showTechStack?: boolean;
+  showYear?: boolean;
 }
 
 const {
@@ -26,6 +28,8 @@ const {
   href,
   index,
   featured = false,
+  showTechStack = true,
+  showYear = true,
 } = Astro.props;
 ---
 
@@ -48,18 +52,24 @@ const {
 
     <div class="project__body">
       <div class="project__meta">
-        <span>{year}</span>
-        <span aria-hidden="true">/</span>
+        {showYear && (
+          <>
+            <span>{year}</span>
+            <span aria-hidden="true">/</span>
+          </>
+        )}
         <span>{role}</span>
       </div>
 
       <h2 class="project__title">{title}</h2>
       <p class="project__summary">{summary}</p>
 
-      <div class="project__footer">
-        <ul class="project__tech" aria-label="Technology stack">
-          {tech.slice(0, featured ? 5 : 3).map((item) => <li>{item}</li>)}
-        </ul>
+      <div class:list={['project__footer', { 'project__footer--solo': !showTechStack }]}>
+        {showTechStack && (
+          <ul class="project__tech" aria-label="Technology stack">
+            {tech.slice(0, featured ? 5 : 3).map((item) => <li>{item}</li>)}
+          </ul>
+        )}
         <span class="project__arrow" aria-hidden="true">↗</span>
       </div>
     </div>
@@ -164,6 +174,10 @@ const {
     align-items: end;
     justify-content: space-between;
     gap: var(--space-md);
+  }
+
+  .project__footer--solo {
+    justify-content: flex-end;
   }
 
   .project__tech {
