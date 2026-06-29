@@ -138,6 +138,14 @@ const opacity = opacityMap[intensity];
     opacity: calc(var(--opacity) * 0.6);
   }
 
+  /* Pause the (heavily-blurred) layer animations while the tab is hidden so we
+     don't burn GPU/battery in the background. Toggled by the script below. */
+  .aurora-background.is-paused .aurora-layer,
+  .aurora-background.is-paused::before,
+  .aurora-background.is-paused::after {
+    animation-play-state: paused;
+  }
+
   /* High performance mode */
   @media (prefers-reduced-transparency: reduce) {
     .aurora-background {
@@ -152,3 +160,13 @@ const opacity = opacityMap[intensity];
     }
   }
 </style>
+
+<script>
+  // Pause aurora animation when the tab is backgrounded.
+  const aurora = document.querySelector('.aurora-background');
+  if (aurora) {
+    const sync = () => aurora.classList.toggle('is-paused', document.hidden);
+    document.addEventListener('visibilitychange', sync);
+    sync();
+  }
+</script>
