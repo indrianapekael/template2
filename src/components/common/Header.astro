@@ -1,14 +1,18 @@
 ---
 import siteConfig from '@/site.config';
+import { withBase } from '@/lib/url';
 
 const currentPath = Astro.url.pathname;
 
 // A nav item is active when the path matches exactly or sits under it
 // (e.g. /blog stays active on /blog/page/2 and /blog/my-post). "/" only
-// matches the home page itself.
+// matches the home page itself. currentPath includes the base, so compare
+// against the base-prefixed href.
 function isActive(href: string): boolean {
-  if (href === '/') return currentPath === '/';
-  return currentPath === href || currentPath.startsWith(href + '/');
+  const target = withBase(href);
+  const home = withBase('/');
+  if (href === '/') return currentPath === home;
+  return currentPath === target || currentPath.startsWith(target + '/');
 }
 
 const navItems = siteConfig.nav.main.filter(item => {
@@ -23,7 +27,7 @@ const navItems = siteConfig.nav.main.filter(item => {
 <header class="site-header glass-nav">
   <div class="container header-container">
     <!-- Logo/Brand -->
-    <a href="/" class="brand" aria-label="Home">
+    <a href={withBase('/')} class="brand" aria-label="Home">
       <span class="brand-text">{siteConfig.name}</span>
     </a>
 
@@ -46,7 +50,7 @@ const navItems = siteConfig.nav.main.filter(item => {
         {navItems.map((item) => (
           <li class="nav-item">
             <a
-              href={item.href}
+              href={withBase(item.href)}
               class={`nav-link ${isActive(item.href) ? 'active' : ''}`}
               aria-current={isActive(item.href) ? 'page' : undefined}
             >

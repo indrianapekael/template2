@@ -5,7 +5,9 @@ import siteConfig from './src/site.config.ts';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astro-haze.pages.dev',
+  // Served from a GitHub Pages project site: https://kpab.github.io/astro-haze/
+  site: 'https://kpab.github.io',
+  base: '/astro-haze',
   // MDX is always enabled so `.mdx` files in the content collections render
   // (the blog/projects globs already accept them). Sitemap is gated by the
   // `features.sitemap` flag in site.config.

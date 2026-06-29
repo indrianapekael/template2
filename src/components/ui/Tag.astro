@@ -6,6 +6,8 @@ export interface Props {
   class?: string;
 }
 
+import { withBase } from '@/lib/url';
+
 const { name, href, size = 'md', class: className = '' } = Astro.props;
 
 // When no explicit href is given, link to the tag archive by default.
@@ -15,7 +17,7 @@ const slug = name
   .trim()
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '');
-const target = href ?? `/tags/${slug}`;
+const target = href ? withBase(href) : withBase(`/tags/${slug}`);
 const classes = ['tag', `tag--${size}`, className].filter(Boolean).join(' ');
 ---
 

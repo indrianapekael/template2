@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import siteConfig from '@/site.config';
+import { withBase } from '@/lib/url';
 import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
 import Badge from '@/components/ui/Badge.astro';
@@ -98,7 +99,7 @@ const showcases = [
                 </div>
                 <h2>{item.title}</h2>
                 <p>{item.description}</p>
-                <a href={item.href}>{item.cta}<span aria-hidden="true"> →</span></a>
+                <a href={withBase(item.href)}>{item.cta}<span aria-hidden="true"> →</span></a>
               </div>
               <GlassCard padding="none" radius="xl" class="showcase__preview">
                 {item.index === '01' && (
@@ -157,9 +158,9 @@ const showcases = [
         <p>Start with a structure. Make the atmosphere yours.</p>
         <h2>Pick a page and begin.</h2>
         <div>
-          <Button href="/blog" variant="outline" size="lg">Read</Button>
-          <Button href="/work" variant="outline" size="lg">Show</Button>
-          <Button href="/landing" variant="solid" size="lg">Launch</Button>
+          <Button href={withBase('/blog')} variant="outline" size="lg">Read</Button>
+          <Button href={withBase('/work')} variant="outline" size="lg">Show</Button>
+          <Button href={withBase('/landing')} variant="solid" size="lg">Launch</Button>
         </div>
       </Container>
     </section>

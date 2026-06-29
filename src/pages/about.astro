@@ -8,6 +8,7 @@ import Container from '@/components/ui/Container.astro';
 import GlassCard from '@/components/ui/GlassCard.astro';
 import Section from '@/components/ui/Section.astro';
 import siteConfig from '@/site.config';
+import { withBase } from '@/lib/url';
 
 const formats = [
   {
@@ -107,7 +108,7 @@ const stack = [
                   </Button>
                 )
               }
-              <Button href="/landing" variant="outline" size="lg">See the live demo</Button>
+              <Button href={withBase('/landing')} variant="outline" size="lg">See the live demo</Button>
             </div>
           </div>
         </GlassPanel>
@@ -124,7 +125,7 @@ const stack = [
       <div class="format-list">
         {
           formats.map((format) => (
-            <GlassCard href={format.href} padding="lg" radius="xl" class="format-card">
+            <GlassCard href={withBase(format.href)} padding="lg" radius="xl" class="format-card">
               <div class="format-card__meta">
                 <span>{format.number}</span>
                 <span>{format.label}</span>

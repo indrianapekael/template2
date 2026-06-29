@@ -5,6 +5,7 @@ import Footer from '@/components/common/Footer.astro';
 import GlassPanel from '@/components/common/GlassPanel.astro';
 import Container from '@/components/ui/Container.astro';
 import Button from '@/components/ui/Button.astro';
+import { withBase } from '@/lib/url';
 ---
 
 <BaseLayout
@@ -25,8 +26,8 @@ import Button from '@/components/ui/Button.astro';
             Let's get you back on track.
           </p>
           <div class="notfound__actions">
-            <Button href="/" variant="solid">Back to home</Button>
-            <Button href="/blog" variant="glass">Browse the blog</Button>
+            <Button href={withBase('/')} variant="solid">Back to home</Button>
+            <Button href={withBase('/blog')} variant="glass">Browse the blog</Button>
           </div>
         </GlassPanel>
       </Container>

@@ -1,5 +1,6 @@
 ---
 import siteConfig from '@/site.config';
+import { withBase } from '@/lib/url';
 import GlassPanel from './GlassPanel.astro';
 
 const currentYear = new Date().getFullYear();
@@ -15,7 +16,7 @@ const socialIcons = {
 const footerLinks = [
   { name: 'Privacy', href: '/privacy' },
   { name: 'Terms', href: '/terms' },
-  { name: 'Sitemap', href: '/sitemap.xml' },
+  { name: 'Sitemap', href: '/sitemap-index.xml' },
   { name: 'RSS', href: '/rss.xml' }
 ];
 ---
@@ -37,7 +38,7 @@ const footerLinks = [
           <ul class="footer-links">
             {siteConfig.nav.main.map((item) => (
               <li>
-                <a href={item.href} class="footer-link">
+                <a href={withBase(item.href)} class="footer-link">
                   {item.name}
                 </a>
               </li>
@@ -51,7 +52,7 @@ const footerLinks = [
           <ul class="footer-links">
             {footerLinks.map((link) => (
               <li>
-                <a href={link.href} class="footer-link">
+                <a href={withBase(link.href)} class="footer-link">
                   {link.name}
                 </a>
               </li>

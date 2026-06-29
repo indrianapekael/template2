@@ -83,8 +83,8 @@ export default {
 
 ## Next Steps
 
-- Explore the [component library](/docs/components)
-- Learn about [content collections](/docs/content)
-- Check out [deployment options](/docs/deployment)
+- Explore [Astro component syntax](https://docs.astro.build/en/basics/astro-components/)
+- Learn about [Astro content collections](https://docs.astro.build/en/guides/content-collections/)
+- Check out [Astro deployment options](https://docs.astro.build/en/guides/deploy/)
 
 Happy building with Astro Haze!

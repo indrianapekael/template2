@@ -1,5 +1,6 @@
 ---
 import siteConfig from '@/site.config';
+import { withBase } from '@/lib/url';
 
 export interface Props {
   title?: string;
@@ -25,7 +26,9 @@ const {
 const fullTitle =
   title === siteConfig.title ? title : `${title} - ${siteConfig.name}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(ogImage, Astro.site).href;
+// withBase covers a root-relative default like "/og-image.png"; astro:assets
+// `.src` values are already base-prefixed, and withBase leaves them untouched.
+const ogImageURL = new URL(withBase(ogImage), Astro.site).href;
 
 // JSON-LD structured data — serialized so values are emitted as real JSON,
 // not as un-evaluated source text (a common is:inline pitfall).
@@ -48,7 +51,7 @@ const jsonLd = article
       '@type': 'WebSite',
       name: siteConfig.name,
       description: siteConfig.description,
-      url: new URL('/', Astro.site).href,
+      url: new URL(withBase('/'), Astro.site).href,
     };
 ---
 
@@ -107,7 +110,7 @@ const jsonLd = article
       rel="alternate"
       type="application/rss+xml"
       title={`${siteConfig.name} RSS Feed`}
-      href="/rss.xml"
+      href={withBase('/rss.xml')}
     />
   )
 }

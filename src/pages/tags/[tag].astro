@@ -5,6 +5,7 @@ import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import PostGrid from '@/components/blog/PostGrid.astro';
+import { withBase } from '@/lib/url';
 import {
   getPublishedPosts,
   collectTags,
@@ -39,7 +40,7 @@ const { tag, posts } = Astro.props;
     <section class="section">
       <Container>
         <header class="tag-header">
-          <a href="/tags" class="tag-back">← All tags</a>
+          <a href={withBase('/tags')} class="tag-back">← All tags</a>
           <h1 class="tag-title">
             <span class="tag-hash">#</span>{tag}
           </h1>

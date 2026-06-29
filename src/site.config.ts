@@ -62,7 +62,7 @@ const siteConfig: SiteConfig = {
   title: 'Astro Haze - Glassmorphism Theme',
   description: 'A beautiful glassmorphism multi-purpose theme for Astro 7',
   author: 'Your Name',
-  url: 'https://astro-haze.pages.dev',
+  url: 'https://kpab.github.io/astro-haze',
   ogImage: '/og-image.png',
   twitterHandle: '@yourusername',
 

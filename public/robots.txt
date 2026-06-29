@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://astro-haze.pages.dev/sitemap-index.xml
+Sitemap: https://kpab.github.io/astro-haze/sitemap-index.xml
