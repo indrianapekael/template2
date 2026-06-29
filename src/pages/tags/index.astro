@@ -30,15 +30,11 @@ const maxCount = tags.reduce((m, t) => Math.max(m, t.count), 1);
           ) : (
             <GlassPanel variant="solid" padding="xl">
               <ul class="tag-cloud">
-                {tags.map(({ tag, count }) => (
+                {tags.map(({ tag, slug, count }) => (
                   <li>
                     <a
                       class="tag-cloud__item"
-                      href={`/tags/${tag
-                        .toLowerCase()
-                        .trim()
-                        .replace(/[^a-z0-9]+/g, '-')
-                        .replace(/^-+|-+$/g, '')}`}
+                      href={`/tags/${slug}`}
                       style={`--weight: ${0.85 + (count / maxCount) * 0.6}`}
                     >
                       <span class="tag-cloud__hash">#</span>
