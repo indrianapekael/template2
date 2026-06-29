@@ -46,7 +46,7 @@ const projectLinks = [
 <BaseLayout
   title={project.data.title}
   description={description}
-  ogImage={project.data.cover}
+  ogImage={project.data.cover.src}
 >
   <Header />
 
@@ -68,8 +68,7 @@ const projectLinks = [
             <Picture
               src={project.data.cover}
               alt={project.data.coverAlt ?? project.data.title}
-              width={1800}
-              height={1125}
+              widths={[600, 1200, 1586]}
               sizes="100vw"
               loading="eager"
               fetchpriority="high"

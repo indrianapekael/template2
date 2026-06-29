@@ -29,6 +29,11 @@ const {
 // Imported assets (ImageMetadata) are optimized to AVIF first, then WebP.
 // Plain string paths (public/ or remote) are rendered as-is.
 const isLocalAsset = typeof src !== 'string';
+
+// When a caller declares a responsive `sizes` but no explicit width list, emit
+// a sensible srcset. All shipped assets are ≥1448px wide, so these stay within
+// the source (Astro errors if a width exceeds the original).
+const resolvedWidths = widths ?? (sizes ? [400, 800, 1200] : undefined);
 ---
 
 {
@@ -37,7 +42,8 @@ const isLocalAsset = typeof src !== 'string';
       src={src as ImageMetadata}
       alt={alt}
       formats={['avif', 'webp']}
-      widths={widths}
+      fallbackFormat="webp"
+      widths={resolvedWidths}
       sizes={sizes}
       loading={loading}
       fetchpriority={fetchpriority}

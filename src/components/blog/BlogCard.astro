@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from 'astro';
 import Tag from '@/components/ui/Tag.astro';
 import Picture from '@/components/ui/Picture.astro';
 import Badge from '@/components/ui/Badge.astro';
@@ -7,7 +8,7 @@ export interface Props {
   title: string;
   description: string;
   pubDate: Date;
-  heroImage?: string;
+  heroImage?: ImageMetadata;
   heroImageAlt?: string;
   tags?: string[];
   href: string;
@@ -39,7 +40,12 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
     heroImage && (
       <a href={href} class="blog-card__image-link" tabindex="-1" aria-hidden="true">
         <div class="blog-card__image">
-          <Picture src={heroImage} alt={heroImageAlt ?? title} />
+          <Picture
+            src={heroImage}
+            alt={heroImageAlt ?? title}
+            widths={[400, 800]}
+            sizes="(min-width: 900px) 400px, 100vw"
+          />
           {featured && (
             <span class="blog-card__featured">
               <Badge variant="accent">Featured</Badge>

@@ -2,12 +2,12 @@
 title: "Interval Health Companion"
 summary: "A private, low-friction recovery companion that turns clinical plans into a manageable rhythm at home."
 description: "Interval helps patients follow rehabilitation plans, notice meaningful changes, and share concise progress with clinicians."
-cover: "/images/projects/interval-cover.webp"
+cover: "../../assets/images/projects/interval-cover.webp"
 coverAlt: "Interval recovery companion displaying a daily rehabilitation plan"
 images:
-  - "/images/projects/interval-plan.webp"
-  - "/images/projects/interval-checkin.webp"
-  - "/images/projects/interval-progress.webp"
+  - "../../assets/images/projects/interval-plan.webp"
+  - "../../assets/images/projects/interval-checkin.webp"
+  - "../../assets/images/projects/interval-progress.webp"
 tech:
   - "React"
   - "TypeScript"

@@ -2,12 +2,12 @@
 title: "Fieldnote Research Library"
 summary: "A living research archive that makes years of interviews, observations, and decisions searchable across product teams."
 description: "Fieldnote connects raw evidence to product decisions without flattening qualitative research into a dashboard."
-cover: "/images/projects/fieldnote-cover.webp"
+cover: "../../assets/images/projects/fieldnote-cover.webp"
 coverAlt: "Fieldnote research library interface with highlighted observations"
 images:
-  - "/images/projects/fieldnote-library.webp"
-  - "/images/projects/fieldnote-evidence.webp"
-  - "/images/projects/fieldnote-timeline.webp"
+  - "../../assets/images/projects/fieldnote-library.webp"
+  - "../../assets/images/projects/fieldnote-evidence.webp"
+  - "../../assets/images/projects/fieldnote-timeline.webp"
 tech:
   - "Next.js"
   - "TypeScript"

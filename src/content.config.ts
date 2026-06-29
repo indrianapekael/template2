@@ -2,15 +2,17 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'zod';
 
-// Blog collection — Markdown content via the Content Layer glob loader
+// Blog collection — Markdown content via the Content Layer glob loader.
+// `image()` runs hero images through astro:assets (AVIF/WebP + responsive
+// srcset). Frontmatter paths are resolved relative to the Markdown file.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    heroImage: z.string().optional(),
+    heroImage: image().optional(),
     heroImageAlt: z.string().optional(),
     tags: z.array(z.string()).default([]),
     author: z.string().default('Anonymous'),
@@ -19,16 +21,17 @@ const blog = defineCollection({
   }),
 });
 
-// Portfolio / Projects collection — Markdown content
+// Portfolio / Projects collection — Markdown content. Cover and gallery
+// images go through astro:assets via `image()`.
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     summary: z.string(),
     description: z.string().optional(),
-    cover: z.string(),
+    cover: image(),
     coverAlt: z.string().optional(),
-    images: z.array(z.string()).optional(),
+    images: z.array(image()).optional(),
     tech: z.array(z.string()),
     role: z.string(),
     year: z.number(),

@@ -1,8 +1,9 @@
 ---
+import type { ImageMetadata } from 'astro';
 import Picture from '@/components/ui/Picture.astro';
 
 export interface Props {
-  images: string[];
+  images: ImageMetadata[];
   title: string;
 }
 
@@ -23,8 +24,7 @@ const { images, title } = Astro.props;
             <Picture
               src={src}
               alt={`${title} project view ${index + 1}`}
-              width={index % 3 === 0 ? 1600 : 1000}
-              height={index % 3 === 0 ? 900 : 1000}
+              widths={[400, 800, 1200]}
               sizes={index % 3 === 0 ? '100vw' : '(min-width: 720px) 50vw, 100vw'}
               class="gallery__image"
             />

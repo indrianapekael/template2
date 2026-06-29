@@ -2,12 +2,12 @@
 title: "Afterlight Cultural Archive"
 summary: "An atmospheric digital archive where oral histories, objects, and places can be explored without losing their relationships."
 description: "Afterlight pairs a flexible editorial system with a spatial browsing model for a community-held cultural collection."
-cover: "/images/projects/afterlight-cover.webp"
+cover: "../../assets/images/projects/afterlight-cover.webp"
 coverAlt: "Afterlight archive showing an oral history beside collection photography"
 images:
-  - "/images/projects/afterlight-story.webp"
-  - "/images/projects/afterlight-map.webp"
-  - "/images/projects/afterlight-collection.webp"
+  - "../../assets/images/projects/afterlight-story.webp"
+  - "../../assets/images/projects/afterlight-map.webp"
+  - "../../assets/images/projects/afterlight-collection.webp"
 tech:
   - "Astro"
   - "TypeScript"
