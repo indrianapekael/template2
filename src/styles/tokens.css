@@ -29,6 +29,10 @@
   --color-accent-light: hsl(280, 70%, 75%);
   --color-accent-dark: hsl(280, 70%, 45%);
   --color-accent-glass: hsla(280, 70%, 60%, 0.1);
+  /* Accent tuned for text on the page background — meets WCAG AA (≈5.9:1 in
+     light mode). Use this for links/labels; --color-accent stays for fills,
+     borders and glows where the brighter purple is wanted. */
+  --color-accent-text: hsl(280, 70%, 45%);
 
   /* Semantic colors */
   --color-success: hsl(142, 71%, 45%);
@@ -115,6 +119,9 @@
   --color-accent-light: hsl(280, 80%, 75%);
   --color-accent-dark: hsl(280, 80%, 55%);
   --color-accent-glass: hsla(280, 80%, 65%, 0.15);
+  /* On dark backgrounds the lighter accent already clears AA, so accent text
+     uses the brighter value here. */
+  --color-accent-text: hsl(280, 80%, 75%);
 }
 
 /* Reduced transparency preference */

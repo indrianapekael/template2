@@ -50,13 +50,13 @@ p {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-accent-dark);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 
@@ -215,6 +215,17 @@ button {
   top: var(--space-sm);
 }
 
+/* Skip-link target. tabindex="-1" makes <main> focusable so focus actually
+   moves there; the outline is suppressed (the visible scroll is feedback
+   enough) and scroll-margin keeps it clear of the sticky header. */
+#main {
+  scroll-margin-top: calc(60px + var(--space-lg));
+}
+
+#main:focus {
+  outline: none;
+}
+
 /* Loading state */
 @keyframes shimmer {
   0% {
@@ -300,12 +311,12 @@ button {
 }
 
 .prose a {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   text-decoration: underline;
 }
 
 .prose a:hover {
-  color: var(--color-accent-dark);
+  color: var(--color-accent);
 }
 
 .prose blockquote {

@@ -26,7 +26,7 @@ const { hero, features, benefits, pricing, gallery, testimonials, faq, finalCta 
   description={hero.description}
 >
   <Header />
-  <main id="main">
+  <main id="main" tabindex="-1">
     <Hero hero={hero} />
     {features && features.length > 0 && <Features features={features} />}
     {benefits && benefits.length > 0 && <Benefits benefits={benefits} />}
