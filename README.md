@@ -2,6 +2,10 @@
 
 > A glassmorphism Astro 7 theme for publishing, portfolios, and polished product launches.
 
+[![Deploy to GitHub Pages](https://github.com/kpab/astro-haze/actions/workflows/deploy.yml/badge.svg)](https://github.com/kpab/astro-haze/actions/workflows/deploy.yml)
+
+**[🌐 Live demo → kpab.github.io/astro-haze](https://kpab.github.io/astro-haze/)**
+
 ![astro-haze — a glassmorphism Astro 7 theme](docs/screenshots/astro-haze-overview.webp)
 
 `astro-haze` is a static, content-first theme with a reusable glass UI system. It
