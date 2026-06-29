@@ -1,74 +1,75 @@
-# astro-haze
+<div align="center">
 
-> A glassmorphism Astro 7 theme for publishing, portfolios, and polished product launches.
+# 🌫️ astro-haze
 
-[![Deploy to GitHub Pages](https://github.com/kpab/astro-haze/actions/workflows/deploy.yml/badge.svg)](https://github.com/kpab/astro-haze/actions/workflows/deploy.yml)
+### A glassmorphism **Astro 7** theme for publishing, portfolios & polished product launches
 
-**[🌐 Live demo → kpab.github.io/astro-haze](https://kpab.github.io/astro-haze/)**
+[![Deploy](https://img.shields.io/github/actions/workflow/status/kpab/astro-haze/deploy.yml?style=flat-square&logo=githubactions&logoColor=white&label=deploy)](https://github.com/kpab/astro-haze/actions/workflows/deploy.yml)
+[![Astro](https://img.shields.io/badge/Astro-7-BC52EE?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Node](https://img.shields.io/badge/Node-%E2%89%A5%2022.12-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-A855F7?style=flat-square)](LICENSE)
 
-![astro-haze — a glassmorphism Astro 7 theme](docs/screenshots/astro-haze-overview.webp)
+**[🌐 Live demo](https://kpab.github.io/astro-haze/)** · [Features](#-features) · [Quick start](#-quick-start) · [Configuration](#-site-configuration) · [Content](#-adding-content) · [Deploy](#-deploy-to-github-pages)
 
-`astro-haze` is a static, content-first theme with a reusable glass UI system. It
-ships with a paginated blog, portfolio case studies, and an e-commerce landing
-page—plus the SEO, feeds, responsive behavior, and accessibility details needed
-to turn the starter into a real site.
+<img src="docs/screenshots/astro-haze-overview.webp" alt="astro-haze — a glassmorphism Astro 7 theme" width="100%" />
 
-## Features
+</div>
 
-- A cohesive glassmorphism system with aurora backgrounds, reusable cards,
-  buttons, badges, tags, sections, and containers
-- Light and dark color schemes with a system-aware theme toggle
-- Paginated blog with tags, table of contents, reading time, share links, and
-  previous/next navigation
-- Portfolio index, technology filters, case-study pages, and responsive galleries
-- Configurable e-commerce landing page with hero, features, benefits, pricing,
-  gallery, testimonials, FAQ, and final CTA sections
-- Astro 7 Content Layer collections with Zod-validated content
-- Markdown and MDX rendered by Astro 7's Sätteri Markdown engine
-- RSS feed and generated XML sitemap
-- Accessible landmarks, skip navigation, keyboard focus states, semantic
-  controls, and WCAG AA-conscious color and interaction patterns
-- `prefers-reduced-motion` and `prefers-reduced-transparency` support
-- AVIF-first responsive output for images imported through the shared `Picture`
-  component, with WebP fallback
-- Static output ready for Cloudflare Pages
+> `astro-haze` is a static, content-first theme with a reusable glass UI system. It ships
+> with a paginated blog, portfolio case studies, and an e-commerce landing page — plus the
+> SEO, feeds, responsive behavior, and accessibility details needed to turn the starter into
+> a real site.
+
+---
+
+## ✨ Features
+
+| | |
+| --- | --- |
+| 🪟 **Glass UI system** | Aurora backgrounds with reusable cards, buttons, badges, tags, sections & containers |
+| 🌗 **Light / dark** | System-aware theme toggle with no-flash startup and synced `theme-color` |
+| 📝 **Blog** | Pagination, tags, table of contents, reading time, share links, prev/next navigation |
+| 🖼️ **Portfolio** | Index with technology filters, case-study pages, and responsive galleries |
+| 🛍️ **Landing page** | Config-driven hero, features, benefits, pricing, gallery, testimonials, FAQ & final CTA |
+| 🧱 **Content Layer** | Astro 7 collections with Zod-validated frontmatter; Markdown **and** MDX (Sätteri engine) |
+| 🔍 **SEO & feeds** | Canonical URLs, Open Graph, Twitter cards, JSON-LD, RSS feed & XML sitemap |
+| ♿ **Accessible** | Landmarks, skip nav, keyboard focus states, WCAG AA-conscious color & interaction |
+| 🎛️ **Respectful motion** | Honors `prefers-reduced-motion` and `prefers-reduced-transparency` |
+| 🚀 **Optimized images** | AVIF/WebP with responsive `srcset` via `astro:assets` |
+| ⚡ **Static & fast** | Minimal client JS — deploys to GitHub Pages or Cloudflare Pages |
 
 > [!NOTE]
-> Blog hero images and project covers/galleries are validated with Astro's
-> `image()` helper and optimized to AVIF/WebP with a responsive `srcset`. Store
-> them under `src/assets/` and reference them with a path relative to the
-> Markdown file (e.g. `../../assets/images/blog/atmosphere.webp`). Remote URLs
-> and `public/` string paths (e.g. the landing demo) are rendered unchanged.
+> Blog hero images and project covers/galleries are validated with Astro's `image()` helper
+> and optimized to AVIF/WebP with a responsive `srcset`. Store them under `src/assets/` and
+> reference them with a path relative to the Markdown file
+> (e.g. `../../assets/images/blog/atmosphere.webp`). Remote URLs and `public/` string paths
+> (e.g. the landing demo) are rendered unchanged.
 
-## Quick start
+---
 
-### Requirements
+## 🚀 Quick start
 
-- Node.js 22.12 or newer
-- npm
+> **Requirements:** Node.js 22.12 or newer · npm
 
 ```sh
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Astro.
-
-Astro 7 can detect an AI-agent environment and run the development server in
-the background. When that happens, inspect it with:
+Open the local URL printed by Astro. Astro 7 can detect an AI-agent environment and run the
+dev server in the background — inspect it with:
 
 ```sh
 npx astro dev status
 npx astro dev logs
 ```
 
-Create a production build:
+Create a production build (written to `dist/`):
 
 ```sh
 npm run build
 ```
-
-The static site is written to `dist/`. Additional project commands are:
 
 | Command | Purpose |
 | --- | --- |
@@ -77,7 +78,9 @@ The static site is written to `dist/`. Additional project commands are:
 | `npm run preview` | Preview the production build locally |
 | `npm run check` | Run Astro diagnostics and TypeScript without emitting files |
 
-## Project structure
+---
+
+## 🗂️ Project structure
 
 ```text
 src/
@@ -92,7 +95,7 @@ src/
 │   ├── landing/     # JSON or YAML landing-page data
 │   └── projects/    # Markdown and MDX portfolio case studies
 ├── layouts/         # Base document layout
-├── lib/             # Shared content helpers
+├── lib/             # Shared content + URL helpers
 ├── pages/
 │   ├── blog/        # Blog index, pagination, and article routes
 │   ├── landing/     # E-commerce landing route
@@ -104,10 +107,12 @@ src/
 └── site.config.ts
 ```
 
-## Site configuration
+---
 
-Edit [`src/site.config.ts`](src/site.config.ts) for site identity, navigation,
-feature visibility, social links, and page options.
+## ⚙️ Site configuration
+
+Edit [`src/site.config.ts`](src/site.config.ts) for site identity, navigation, feature
+visibility, social links, and page options.
 
 ### Identity and theme
 
@@ -135,8 +140,8 @@ feature visibility, social links, and page options.
 | `features.rss` | `boolean` | Controls the RSS discovery `<link>`; the `/rss.xml` feed is always generated |
 | `features.sitemap` | `boolean` | Enables the `@astrojs/sitemap` integration in `astro.config.mjs` |
 
-Header navigation entries and the sitemap integration respond to these flags.
-The `/rss.xml` feed and content routes are always part of the static build.
+Header navigation entries and the sitemap integration respond to these flags. The `/rss.xml`
+feed and content routes are always part of the static build.
 
 ### Social links
 
@@ -168,11 +173,13 @@ All social fields are optional strings.
 | `portfolio.showTechStack` | `boolean` | Shows the technology stack on project cards and project pages |
 | `portfolio.showYear` | `boolean` | Shows the project year on project cards and project pages |
 
-## Adding content
+---
+
+## 📝 Adding content
 
 Collection definitions and validation rules live in
-[`src/content.config.ts`](src/content.config.ts). Astro reports invalid or
-missing fields during development and builds.
+[`src/content.config.ts`](src/content.config.ts). Astro reports invalid or missing fields
+during development and builds.
 
 ### Blog posts
 
@@ -261,10 +268,8 @@ Write the case study here.
 
 ### Landing-page data
 
-Add `.json`, `.yaml`, or `.yml` files to `src/content/landing/`. The current
-landing route loads the first entry in this collection.
-
-Only `hero` is required:
+Add `.json`, `.yaml`, or `.yml` files to `src/content/landing/`. The current landing route
+loads the first entry in this collection. Only `hero` is required:
 
 ```json
 {
@@ -293,36 +298,40 @@ The complete landing schema accepts these optional sections:
 | `faq` | Array of `{ question, answer }` |
 | `finalCta` | `{ title, description, button: { text, href } }` |
 
-Within `hero`, `title`, `subtitle`, `description`, and `cta.primary` are
-required. `cta.secondary` and `image` are optional.
+Within `hero`, `title`, `subtitle`, `description`, and `cta.primary` are required.
+`cta.secondary` and `image` are optional.
 
-## Customization
+---
+
+## 🎨 Customization
 
 ### Accent color
 
 The rendered color system is controlled by CSS custom properties in
-[`src/styles/tokens.css`](src/styles/tokens.css). Update `--color-accent` and
-its related light, dark, and glass variants in both the light and dark token
-blocks. Keep `theme.accentColor` in `src/site.config.ts` set to the same base
-accent so configuration metadata and CSS remain aligned.
+[`src/styles/tokens.css`](src/styles/tokens.css). Update `--color-accent` and its related
+light, dark, and glass variants in both the light and dark token blocks. Keep
+`theme.accentColor` in `src/site.config.ts` set to the same base accent so configuration
+metadata and CSS remain aligned.
 
 ### Design tokens
 
-`src/styles/tokens.css` contains color, typography, spacing, radius, transition,
-z-index, and container tokens. Core glass surfaces and fallbacks live in
-`src/styles/glass.css`; global element styles live in `src/styles/global.css`.
+`src/styles/tokens.css` contains color, typography, spacing, radius, transition, z-index, and
+container tokens. Core glass surfaces and fallbacks live in `src/styles/glass.css`; global
+element styles live in `src/styles/global.css`.
 
 ### Images
 
-The shared `src/components/ui/Picture.astro` component produces AVIF and WebP
-sources for imported local assets. Use descriptive `alt` text and explicit
-responsive sizes. Ready-to-use generation briefs for the demo imagery are in
+The shared [`src/components/ui/Picture.astro`](src/components/ui/Picture.astro) component
+produces AVIF and WebP sources for imported local assets. Use descriptive `alt` text and
+explicit responsive sizes. Ready-to-use generation briefs for the demo imagery are in
 [`docs/image-prompts.md`](docs/image-prompts.md).
 
-## Deploy to GitHub Pages
+---
 
-This repo ships a workflow at `.github/workflows/deploy.yml` that builds with
-[`withastro/action`](https://github.com/withastro/action) and publishes to
+## 🚢 Deploy to GitHub Pages
+
+This repo ships a workflow at [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+that builds with [`withastro/action`](https://github.com/withastro/action) and publishes to
 GitHub Pages on every push to `master`.
 
 1. In the repository **Settings → Pages**, set **Source** to **GitHub Actions**.
@@ -335,16 +344,23 @@ site: 'https://kpab.github.io',
 base: '/astro-haze',
 ```
 
-So it is served from `https://kpab.github.io/astro-haze/`. All internal links go
-through the `withBase()` helper (`src/lib/url.ts`), which prefixes `base`.
+So it is served from `https://kpab.github.io/astro-haze/`. All internal links go through the
+`withBase()` helper ([`src/lib/url.ts`](src/lib/url.ts)), which prefixes `base`.
 
-To deploy under a different repo, user site, or custom domain, update `site`,
-`base`, `siteConfig.url`, and the `Sitemap:` line in `public/robots.txt`. With a
-user site (`<user>.github.io`) or a custom domain, set `base: '/'`.
+To deploy under a different repo, user site, or custom domain, update `site`, `base`,
+`siteConfig.url`, and the `Sitemap:` line in `public/robots.txt`. With a user site
+(`<user>.github.io`) or a custom domain, set `base: '/'`.
 
-> The `public/_headers` file is for Cloudflare Pages and is ignored by GitHub
-> Pages; it's kept for users deploying there instead.
+> [!TIP]
+> The `public/_headers` file is for Cloudflare Pages and is ignored by GitHub Pages; it's
+> kept for users deploying there instead.
 
-## License
+---
+
+## 📄 License
 
 Released under the [MIT License](LICENSE).
+
+<div align="center">
+<sub>Built with <a href="https://astro.build">Astro</a> · glassmorphism, done tastefully ✨</sub>
+</div>
