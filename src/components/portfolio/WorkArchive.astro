@@ -36,6 +36,11 @@ const filters = [...technologyCounts]
   .slice(0, 5)
   .map(([name]) => name);
 
+// The technology filter runs client-side over the cards on the page, so it can
+// only be correct when the whole archive fits on a single page. Once paginated
+// it would silently hide matches that live on other pages, so we omit it.
+const showFilters = showTechStack && totalPages <= 1 && filters.length > 0;
+
 const indexOffset = (currentPage - 1) * perPage;
 const rangeStart = projects.length > 0 ? indexOffset + 1 : 0;
 const rangeEnd = indexOffset + projects.length;
@@ -68,7 +73,7 @@ const rangeEnd = indexOffset + projects.length;
         <h2 id="project-index-title">Selected projects</h2>
       </div>
 
-      {showTechStack && filters.length > 0 && (
+      {showFilters && (
         <div class="filters" role="group" aria-label="Filter projects by technology">
           <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">
             All
@@ -134,7 +139,12 @@ const rangeEnd = indexOffset + projects.length;
       });
 
       projects.forEach((project) => {
-        const technologies = JSON.parse(project.dataset.technologies ?? '[]') as string[];
+        let technologies: string[] = [];
+        try {
+          technologies = JSON.parse(project.dataset.technologies ?? '[]') as string[];
+        } catch {
+          technologies = [];
+        }
         const isVisible = selected === 'all' || technologies.includes(selected);
         project.hidden = !isVisible;
         if (isVisible) visibleCount += 1;
