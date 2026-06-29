@@ -315,18 +315,31 @@ sources for imported local assets. Use descriptive `alt` text and explicit
 responsive sizes. Ready-to-use generation briefs for the demo imagery are in
 [`docs/image-prompts.md`](docs/image-prompts.md).
 
-## Deploy to Cloudflare Pages
+## Deploy to GitHub Pages
 
-Create a Cloudflare Pages project connected to the repository and use:
+This repo ships a workflow at `.github/workflows/deploy.yml` that builds with
+[`withastro/action`](https://github.com/withastro/action) and publishes to
+GitHub Pages on every push to `master`.
 
-| Setting | Value |
-| --- | --- |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Node.js version | `22.12` or newer |
+1. In the repository **Settings → Pages**, set **Source** to **GitHub Actions**.
+2. Push to `master` (or run the workflow manually from the **Actions** tab).
 
-Set `siteConfig.url` and the `site` value in `astro.config.mjs` to the final
-production origin before deploying.
+The site is configured for a **project page** in `astro.config.mjs`:
+
+```js
+site: 'https://kpab.github.io',
+base: '/astro-haze',
+```
+
+So it is served from `https://kpab.github.io/astro-haze/`. All internal links go
+through the `withBase()` helper (`src/lib/url.ts`), which prefixes `base`.
+
+To deploy under a different repo, user site, or custom domain, update `site`,
+`base`, `siteConfig.url`, and the `Sitemap:` line in `public/robots.txt`. With a
+user site (`<user>.github.io`) or a custom domain, set `base: '/'`.
+
+> The `public/_headers` file is for Cloudflare Pages and is ignored by GitHub
+> Pages; it's kept for users deploying there instead.
 
 ## License
 
