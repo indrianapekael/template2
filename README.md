@@ -323,8 +323,7 @@ element styles live in `src/styles/global.css`.
 
 The shared [`src/components/ui/Picture.astro`](src/components/ui/Picture.astro) component
 produces AVIF and WebP sources for imported local assets. Use descriptive `alt` text and
-explicit responsive sizes. Ready-to-use generation briefs for the demo imagery are in
-[`docs/image-prompts.md`](docs/image-prompts.md).
+explicit responsive sizes.
 
 ---
 
