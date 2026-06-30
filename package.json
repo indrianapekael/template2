@@ -32,10 +32,14 @@
     "portfolio",
     "landing-page"
   ],
-  "author": "",
+  "author": "kpab <kpablow1122@gmail.com>",
   "license": "MIT",
+  "homepage": "https://kpab.github.io/astro-haze/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/astro-haze"
+    "url": "git+https://github.com/kpab/astro-haze.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kpab/astro-haze/issues"
   }
 }
