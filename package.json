@@ -9,9 +9,6 @@
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit"
   },
-  "engines": {
-    "node": ">=22.12"
-  },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",
     "@astrojs/rss": "^4.0.18",
