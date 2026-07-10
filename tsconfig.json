@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "target": "ES2022",
     "module": "ES2022",
