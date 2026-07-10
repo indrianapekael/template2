@@ -2,15 +2,15 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import siteConfig from './src/site.config.ts';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://example.com',
 
-  
-
   integrations: [mdx(), ...(siteConfig.features.sitemap ? [sitemap()] : [])],
 
-  output: 'static',
+  output: 'server',
+  adapter: vercel(),
 
   build: {
     format: 'directory',
