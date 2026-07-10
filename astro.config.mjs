@@ -12,7 +12,7 @@ export default defineConfig({
 
   integrations: [mdx(), ...(siteConfig.features.sitemap ? [sitemap()] : [])],
 
-  output: 'hybrid',
+  output: 'static',
 
   build: {
     format: 'directory',
