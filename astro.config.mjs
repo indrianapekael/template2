@@ -3,9 +3,10 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import siteConfig from './src/site.config.ts';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
+
+  
 
   integrations: [mdx(), ...(siteConfig.features.sitemap ? [sitemap()] : [])],
 
