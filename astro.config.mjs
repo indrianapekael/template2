@@ -1,14 +1,14 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
-import vercel from '@astrojs/vercel';
+// import vercel from '@astrojs/vercel';
 import siteConfig from './src/site.config.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
 
-  adapter: vercel(),
+  // adapter: vercel(),
 
   integrations: [mdx(), ...(siteConfig.features.sitemap ? [sitemap()] : [])],
 
