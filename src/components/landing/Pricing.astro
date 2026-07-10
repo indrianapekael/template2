@@ -12,6 +12,8 @@ export interface Props {
     features: string[];
     highlighted: boolean;
     cta: { text: string; href: string };
+    coverImage?: string;
+    slug?: string;
   }>;
 }
 
@@ -20,19 +22,21 @@ const { plans } = Astro.props;
 
 <Section
   id="pricing"
-  eyebrow="Editions"
-  title="Choose your starting point."
-  subtitle="These plans demonstrate a pricing layout. Purchases happen only on the linked external destination."
+  eyebrow="Pilihan Paket"
+  title="Pilih paket awal Anda."
+  subtitle="Pilih paket sesuai kebutuhan acara. Pembelian dilakukan melalui tautan eksternal."
   container="xl"
 >
   <div class="pricing-grid">
     {
       plans.map((plan) => (
-        <GlassCard padding="lg" radius="xl" class:list={['pricing-card', { 'pricing-card--featured': plan.highlighted }]}>
+        <GlassCard padding="lg" radius="xl" class:list={['pricing-card', { 'pricing-card--featured': plan.highlighted }]}> 
+          {plan.coverImage && <img class="pricing-card__image" src={plan.coverImage} alt={plan.name || 'Gambar paket'} loading="lazy" />}
+
           <div class="pricing-card__heading">
             <div>
               <p class="pricing-card__name">{plan.name}</p>
-              {plan.highlighted && <span class="pricing-card__label">Most considered</span>}
+              {plan.highlighted && <span class="pricing-card__label">Direkomendasikan</span>}
             </div>
             <p class="pricing-card__price">
               {plan.price}
@@ -55,7 +59,7 @@ const { plans } = Astro.props;
 <style>
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     align-items: stretch;
     gap: var(--space-lg);
   }
@@ -68,6 +72,15 @@ const { plans } = Astro.props;
   .pricing-card--featured {
     border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
     transform: translateY(-1.25rem);
+  }
+
+  .pricing-card__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--glass-border);
   }
 
   .pricing-card__heading {

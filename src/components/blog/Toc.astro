@@ -14,7 +14,7 @@ const items = headings.filter((h) => h.depth >= minDepth && h.depth <= maxDepth)
 {
   items.length > 0 && (
     <nav class="toc" aria-label="Table of contents">
-      <p class="toc__title">On this page</p>
+      <p class="toc__title">Di halaman ini</p>
       <ul class="toc__list">
         {items.map((h) => (
           <li class={`toc__item toc__item--depth-${h.depth}`}>

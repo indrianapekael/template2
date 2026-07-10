@@ -10,20 +10,27 @@ import { withBase } from '@/lib/url';
 
 const { name, href, size = 'md', class: className = '' } = Astro.props;
 
-// When no explicit href is given, link to the tag archive by default.
-// Slug logic mirrors tagSlug() in src/lib/posts.ts.
+// Slug logic mirrors tagSlug() in src/lib/posts.ts (used elsewhere).
 const slug = name
   .toLowerCase()
   .trim()
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '');
-const target = href ? withBase(href) : withBase(`/tags/${slug}`);
+const target = href ? withBase(href) : undefined; // do not auto-link by default
 const classes = ['tag', `tag--${size}`, className].filter(Boolean).join(' ');
 ---
 
-<a class={classes} href={target}>
-  <span class="tag__hash" aria-hidden="true">#</span>{name}
-</a>
+{
+  target ? (
+    <a class={classes} href={target}>
+      <span class="tag__hash" aria-hidden="true">#</span>{name}
+    </a>
+  ) : (
+    <span class={classes} aria-hidden="false">
+      <span class="tag__hash" aria-hidden="true">#</span>{name}
+    </span>
+  )
+}
 
 <style>
   .tag {

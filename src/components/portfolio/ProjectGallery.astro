@@ -3,15 +3,16 @@ import type { ImageMetadata } from 'astro';
 import Picture from '@/components/ui/Picture.astro';
 
 export interface Props {
-  images: ImageMetadata[];
+  images: any[];
   title: string;
 }
 
 const { images, title } = Astro.props;
+const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
 ---
 
 {
-  images.length > 0 && (
+  safeImages.length > 0 && (
     <section class="gallery" aria-labelledby="gallery-title">
       <div class="gallery__heading">
         <p class="gallery__eyebrow">Visual record</p>
@@ -19,7 +20,7 @@ const { images, title } = Astro.props;
       </div>
 
       <div class="gallery__grid">
-        {images.map((src, index) => (
+        {safeImages.map((src, index) => (
           <figure class:list={['gallery__item', { 'gallery__item--wide': index % 3 === 0 }]}>
             <Picture
               src={src}

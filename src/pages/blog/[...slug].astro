@@ -1,6 +1,4 @@
 ---
-import { render } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
@@ -8,37 +6,84 @@ import GlassPanel from '@/components/common/GlassPanel.astro';
 import GlassCard from '@/components/ui/GlassCard.astro';
 import Tag from '@/components/ui/Tag.astro';
 import Picture from '@/components/ui/Picture.astro';
-import Toc from '@/components/blog/Toc.astro';
 import { withBase } from '@/lib/url';
-import {
-  getPublishedPosts,
-  getAdjacentPosts,
-  readingTime,
-} from '@/lib/posts';
+import { getPost, getPostBySlug } from '@/lib/db';
 import siteConfig from '@/site.config';
+import MarkdownIt from 'markdown-it';
 
-export const getStaticPaths = (async () => {
-  const posts = await getPublishedPosts();
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
-}) satisfies GetStaticPaths;
+// Server-side rendering
+export const prerender = false;
 
-const { post } = Astro.props;
-const { Content, headings } = await render(post);
+const rawSlug = Astro.params.slug;
+const slug = Array.isArray(rawSlug) ? rawSlug.join('/') : rawSlug;
+let post: any = null;
 
-const allPosts = await getPublishedPosts();
-const { newer, older } = getAdjacentPosts(allPosts, post.id);
+try {
+  if (!slug) return Astro.redirect('/blog');
 
-const minutes = readingTime(post.body);
+  const maybeId = Number(slug);
+  if (!Number.isNaN(maybeId) && String(maybeId) === slug) {
+    post = await getPost(maybeId);
+  }
+
+  if (!post) {
+    post = await getPostBySlug(slug as string);
+  }
+
+  if (!post) return Astro.redirect('/blog');
+} catch (error) {
+  console.error('Error loading post:', error);
+  return Astro.redirect('/blog');
+}
+
+// Calculate reading time (rough estimate based on word count)
+const wordCount = String(post?.content ?? '').split(/\s+/).filter(Boolean).length;
+const readingTime = Math.ceil(wordCount / 200);
+
+// Format dates
 const dateOpts = { year: 'numeric', month: 'long', day: 'numeric' } as const;
-const formattedDate = post.data.pubDate.toLocaleDateString('en-US', dateOpts);
-const updatedDate = post.data.updatedDate?.toLocaleDateString('en-US', dateOpts);
+const pubDate = new Date(post.published_at);
+const formattedDate = pubDate.toLocaleDateString('en-US', dateOpts);
 
-const showToc = siteConfig.blog.showToc && headings.length > 0;
+// Parse tags
+let tags: string[] = [];
+if (post.tags) {
+  try {
+    tags = JSON.parse(post.tags);
+  } catch {
+    tags = post.tags.split(',').map((t: string) => t.trim()).filter(Boolean);
+  }
+}
+
+// Inject IDs into headings so TOC links work and collect TOC
+function slugify(text: string) {
+  return String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/<[^>]+>/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+// Render markdown to HTML if content looks like markdown
+let contentHtml = post.content || '';
+try {
+  const md = new MarkdownIt({ html: true, linkify: true });
+  contentHtml = md.render(String(post.content || ''));
+} catch (e) {
+  // fall back to raw content
+  contentHtml = String(post.content || '');
+}
+const toc: { id: string; text: string }[] = [];
+contentHtml = contentHtml.replace(/<(h2|h3)([^>]*)>(.*?)<\/\1>/gi, (_m: string, tag: string, attrs: string, inner: string) => {
+  const id = slugify(inner);
+  toc.push({ id, text: inner.replace(/<[^>]+>/g, '') });
+  return `<${tag}${attrs} id="${id}">${inner}</${tag}>`;
+});
+
+// Social sharing URLs
 const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-  post.data.title
+  post.title
 )}&url=${encodeURIComponent(Astro.url.href)}`;
 const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
   Astro.url.href
@@ -46,14 +91,13 @@ const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encod
 ---
 
 <BaseLayout
-  title={post.data.title}
-  description={post.data.description}
-  ogImage={post.data.heroImage?.src}
+  title={post.title}
+  description={post.excerpt}
+  ogImage={post.cover_image}
   article={{
-    publishedTime: post.data.pubDate.toISOString(),
-    modifiedTime: post.data.updatedDate?.toISOString(),
-    author: post.data.author,
-    tags: post.data.tags,
+    publishedTime: pubDate.toISOString(),
+    author: '',
+    tags: tags,
   }}
 >
   <Header />
@@ -62,42 +106,392 @@ const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encod
     <article class="blog-post">
       <div class="container">
         <GlassPanel variant="solid" padding="xl" className="post-header">
-          <a href={withBase('/blog')} class="post-back">← Back to blog</a>
-          <h1 class="post-title">{post.data.title}</h1>
+          <a href={withBase('/blog')} class="post-back">← Kembali ke blog</a>
+          <h1 class="post-title">{post.title}</h1>
 
           <div class="post-meta">
-            <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
+            <time datetime={pubDate.toISOString()}>{formattedDate}</time>
             {
-              updatedDate && (
+              siteConfig.blog.showReadingTime && readingTime > 0 && (
                 <>
                   <span class="separator" aria-hidden="true">·</span>
-                  <span>Updated {updatedDate}</span>
-                </>
-              )
-            }
-            {
-              siteConfig.blog.showReadingTime && minutes > 0 && (
-                <>
-                  <span class="separator" aria-hidden="true">·</span>
-                  <span>{minutes} min read</span>
-                </>
-              )
-            }
-            {
-              post.data.author && (
-                <>
-                  <span class="separator" aria-hidden="true">·</span>
-                  <span>By {post.data.author}</span>
+                  <span>{readingTime} min read</span>
                 </>
               )
             }
           </div>
 
           {
-            post.data.tags.length > 0 && (
+            tags.length > 0 && (
               <div class="post-tags">
-                {post.data.tags.map((tag) => (
+                {tags.map((tag: string) => (
                   <Tag name={tag} />
+                ))}
+              </div>
+            )
+          }
+        </GlassPanel>
+
+        {
+          post.cover_image && (
+            <div class="post-hero">
+              <Picture
+                src={post.cover_image}
+                alt={post.title || 'Gambar artikel'}
+                width={1200}
+                height={600}
+                sizes="100vw"
+                loading="eager"
+                class="post-hero__img"
+              />
+            </div>
+          )
+        }
+
+        {
+          !post.cover_image && (
+            <div class="post-hero">
+              <Picture
+                src="/src/assets/images/product/paket-terorganisir.webp"
+                alt={post.title || 'Gambar artikel'}
+                width={1200}
+                height={600}
+                sizes="100vw"
+                loading="eager"
+                class="post-hero__img"
+              />
+            </div>
+          )
+        }
+
+        <div class="post-content">
+          <div class="content-wrapper">
+            <div class="prose" set:html={contentHtml} />
+            <div class="post-share">
+              <GlassCard>
+                <h3 class="sidebar-title">Bagikan artikel ini</h3>
+                <div class="social-links">
+                  <a href={tweetUrl} target="_blank" rel="noopener noreferrer" class="social-link">Bagikan ke X</a>
+                  <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" class="social-link">Bagikan ke LinkedIn</a>
+                </div>
+              </GlassCard>
+            </div>
+          </div>
+
+          <aside class="post-sidebar">
+            <GlassCard>
+              <h3 class="sidebar-title">Di halaman ini</h3>
+              {toc.length === 0 ? (
+                <p class="sidebar-empty">Tidak ada heading</p>
+              ) : (
+                <ul class="toc-list">
+                  {toc.map((t) => (
+                    <li><a href={'#' + t.id}>{t.text}</a></li>
+                  ))}
+                </ul>
+              )}
+            </GlassCard>
+          </aside>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script type="module">
+  // Smooth scrolling and active TOC highlighting
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocList = document.querySelector('.toc-list');
+    if (!tocList) return;
+
+    const links = Array.from(tocList.querySelectorAll('a'));
+    if (links.length === 0) return;
+
+    // click handler: smooth scroll
+    links.forEach((a) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = a.getAttribute('href') || '';
+        const id = href.replace(/^#/, '');
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          try { history.replaceState(null, '', '#' + id); } catch (err) {}
+        }
+      });
+    });
+
+    // observe headings and toggle active class on links
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        const link = tocList.querySelector(`a[href="#${id}"]`);
+        if (!link) return;
+        if (entry.isIntersecting) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+    }, { root: null, rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+
+    const headings = Array.from(document.querySelectorAll('.prose h2, .prose h3'));
+    headings.forEach((h) => { if (h.id) observer.observe(h); });
+  });
+</script>
+
+<style>
+  .toc-list a.active {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .toc-list li { margin: 0.4rem 0; }
+</style>
+
+<style>
+  .main-content {
+    min-height: 100vh;
+    padding-bottom: var(--space-3xl);
+  }
+
+  .blog-post {
+    padding-top: var(--space-2xl);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .post-header {
+    margin-bottom: var(--space-3xl);
+    text-align: center;
+  }
+
+  .post-hero {
+    max-width: 900px;
+    margin: 0 auto var(--space-3xl);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+
+  .post-hero__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .post-back {
+    display: inline-block;
+    margin-bottom: var(--space-lg);
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .post-back:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .post-title {
+    font-size: var(--text-5xl);
+    font-weight: 800;
+    margin-bottom: var(--space-lg);
+  }
+
+  .post-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+  }
+
+  .separator {
+    opacity: 0.3;
+  }
+
+  .post-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+  }
+
+  .post-image {
+    margin-bottom: var(--space-3xl);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .post-content {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-xl);
+  }
+
+  .prose {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .post-share {
+    margin-top: var(--space-2xl);
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .toc-list a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .sidebar-empty {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .prose :global(h2) {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: var(--space-2xl) 0 var(--space-lg);
+  }
+
+  .prose :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: var(--space-xl) 0 var(--space-md);
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--space-lg);
+  }
+
+  .prose :global(a) {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .prose :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .prose :global(code) {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #fca5a5;
+  }
+
+  .prose :global(pre) {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg);
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid #60a5fa;
+    padding-left: var(--space-lg);
+    margin: var(--space-lg) 0;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: var(--space-lg) 0;
+    padding-left: var(--space-xl);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--space-md);
+  }
+
+  .post-sidebar {
+    position: sticky;
+    top: var(--space-xl);
+    height: fit-content;
+  }
+
+  .sidebar-title {
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .social-link {
+    display: inline-block;
+    padding: var(--space-md) var(--space-lg);
+    background: rgba(96, 165, 250, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 8px;
+    color: #93c5fd;
+    text-decoration: none;
+    text-align: center;
+    transition: all var(--transition-base);
+  }
+
+  .social-link:hover {
+    background: rgba(96, 165, 250, 0.2);
+    border-color: rgba(96, 165, 250, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .post-content {
+      grid-template-columns: 1fr;
+    }
+
+    .post-sidebar {
+      position: static;
+      top: auto;
+    }
+
+    .post-title {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
                 ))}
               </div>
             )
@@ -119,82 +513,13 @@ const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encod
           )
         }
 
-        <div class={`post-body ${showToc ? 'post-body--with-toc' : ''}`}>
+        <div class={`post-body`}>
           <GlassPanel variant="solid" padding="xl" className="post-content">
             <div class="prose">
-              <Content />
+              <div set:html={post.content} />
             </div>
           </GlassPanel>
-
-          {
-            showToc && (
-              <aside class="post-toc">
-                <div class="post-toc__inner">
-                  <Toc headings={headings} />
-                </div>
-              </aside>
-            )
-          }
         </div>
-
-        {
-          siteConfig.blog.showShareButtons && (
-            <GlassPanel variant="default" padding="lg" className="post-footer">
-              <div class="share-section">
-                <h2 class="share-title">Share this post</h2>
-                <div class="share-buttons">
-                  <a
-                    href={tweetUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="share-button glass-button"
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                    </svg>
-                    Share on X
-                  </a>
-                  <a
-                    href={linkedInUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="share-button glass-button"
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                      <rect x="2" y="9" width="4" height="12" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
-                    Share on LinkedIn
-                  </a>
-                </div>
-              </div>
-            </GlassPanel>
-          )
-        }
-
-        {
-          siteConfig.blog.showRelatedPosts && (newer || older) && (
-            <nav class="post-nav" aria-label="More posts">
-              {older ? (
-                <GlassCard href={withBase(`/blog/${older.id}`)} class="post-nav__card">
-                  <span class="post-nav__dir">← Older</span>
-                  <span class="post-nav__title">{older.data.title}</span>
-                </GlassCard>
-              ) : (
-                <span />
-              )}
-              {newer ? (
-                <GlassCard href={withBase(`/blog/${newer.id}`)} class="post-nav__card post-nav__card--next">
-                  <span class="post-nav__dir">Newer →</span>
-                  <span class="post-nav__title">{newer.data.title}</span>
-                </GlassCard>
-              ) : (
-                <span />
-              )}
-            </nav>
-          )
-        }
       </div>
     </article>
   </main>

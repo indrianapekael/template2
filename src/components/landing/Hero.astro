@@ -26,28 +26,28 @@ const { hero } = Astro.props;
       <h1>{hero.title}</h1>
       <p class="landing-hero__description">{hero.description}</p>
       <div class="landing-hero__actions">
-        <Button href={hero.cta.primary.href} external variant="solid" size="lg">
+        <Button href={hero.cta.primary.href} external variant="solid" size="md">
           {hero.cta.primary.text}
           <span aria-hidden="true">↗</span>
         </Button>
         {
           hero.cta.secondary && (
-            <Button href={hero.cta.secondary.href} external variant="outline" size="lg">
+            <Button href={hero.cta.secondary.href} external variant="outline" size="md">
               {hero.cta.secondary.text}
             </Button>
           )
         }
       </div>
-      <p class="landing-hero__note">No checkout demo · External calls to action only</p>
+      <p class="landing-hero__note">Tautan paket dan detail produk. Cek opsi paket langsung di halaman produk.</p>
     </div>
 
     <div class="landing-hero__visual" aria-hidden={!hero.image}>
-      <span class="landing-hero__index">01 / FIELD NOTES</span>
+      <span class="landing-hero__index">01 / PERLENGKAPAN SEMINAR</span>
       {
         hero.image ? (
           <Picture
             src={hero.image}
-            alt=""
+            alt={hero.title || 'Perlengkapan seminar profesional'}
             width={960}
             height={1200}
             loading="eager"
@@ -59,8 +59,8 @@ const { hero } = Astro.props;
         )
       }
       <div class="landing-hero__caption">
-        <span>Small-batch objects</span>
-        <span>Made to stay</span>
+        <span>Perlengkapan acara</span>
+        <span>Dibuat untuk bertahan</span>
       </div>
     </div>
   </Container>

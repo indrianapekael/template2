@@ -58,13 +58,13 @@ export interface SiteConfig {
 }
 
 const siteConfig: SiteConfig = {
-  name: 'Astro Haze',
-  title: 'Astro Haze - Glassmorphism Theme',
-  description: 'A beautiful glassmorphism multi-purpose theme for Astro 7',
-  author: 'Your Name',
-  url: 'https://kpab.github.io/astro-haze',
+  name: 'SeminarKit',
+  title: 'SeminarKit — Perlengkapan Seminar Profesional',
+  description: 'SeminarKit menyediakan paket perlengkapan seminar lengkap: tas seminar, sertifikat, ID card, note, dan material promosi.',
+  author: 'Tim SeminarKit',
+  url: 'https://example.com/seminarkit',
   ogImage: '/og-image.png',
-  twitterHandle: '@yourusername',
+  twitterHandle: '@seminarkit',
 
   theme: {
     accentColor: 'hsl(280, 70%, 60%)',
@@ -74,11 +74,11 @@ const siteConfig: SiteConfig = {
 
   nav: {
     main: [
-      { name: 'Home', href: '/' },
-      { name: 'Blog', href: '/blog' },
+      { name: 'Beranda', href: '/' },
+      { name: 'Produk', href: '/landing' },
       { name: 'Portfolio', href: '/work' },
-      { name: 'Landing', href: '/landing' },
-      { name: 'About', href: '/about' }
+      { name: 'Blog', href: '/blog' },
+      { name: 'Tentang', href: '/about' }
     ]
   },
 
@@ -91,9 +91,9 @@ const siteConfig: SiteConfig = {
   },
 
   social: {
-    github: 'https://github.com/yourusername',
-    twitter: 'https://twitter.com/yourusername',
-    linkedin: 'https://linkedin.com/in/yourusername'
+    github: undefined,
+    twitter: 'https://twitter.com/seminarkit',
+    linkedin: undefined
   },
 
   blog: {

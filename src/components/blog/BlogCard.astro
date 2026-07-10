@@ -7,8 +7,8 @@ import Badge from '@/components/ui/Badge.astro';
 export interface Props {
   title: string;
   description: string;
-  pubDate: Date;
-  heroImage?: ImageMetadata;
+  pubDate?: Date | string | null;
+  heroImage?: ImageMetadata | string;
   heroImageAlt?: string;
   tags?: string[];
   href: string;
@@ -22,20 +22,34 @@ const {
   pubDate,
   heroImage,
   heroImageAlt,
-  tags = [],
+  tags,
   href,
   readingTime,
   featured = false,
 } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const safeTags = Array.isArray(tags) ? tags : [];
+
+function tagSlug(tag: string) {
+  return String(tag)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+const parsedPubDate = pubDate instanceof Date ? pubDate : pubDate ? new Date(pubDate) : null;
+const hasValidDate = parsedPubDate instanceof Date && !Number.isNaN(parsedPubDate.valueOf());
+const formattedDate = hasValidDate
+  ? parsedPubDate.toLocaleDateString('id-ID', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : 'Tanggal tidak tersedia';
 ---
 
-<article class="blog-card glass-card">
+<article class="blog-card glass-card" data-tags={safeTags.map(tagSlug).join(' ')}>
   {
     heroImage && (
       <a href={href} class="blog-card__image-link" tabindex="-1" aria-hidden="true">
@@ -59,18 +73,18 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
   <div class="blog-card__content">
     <header class="blog-card__header">
       <div class="blog-card__meta">
-        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
-        {
-          readingTime && (
-            <>
-              <span class="separator" aria-hidden="true">
-                ·
-              </span>
-              <span>{readingTime} min read</span>
-            </>
-          )
-        }
-      </div>
+          <time datetime={hasValidDate ? parsedPubDate.toISOString() : undefined}>{formattedDate}</time>
+          {
+            readingTime && (
+              <>
+                <span class="separator" aria-hidden="true">
+                  ·
+                </span>
+                <span>{readingTime} menit</span>
+              </>
+            )
+          }
+        </div>
     </header>
 
     <h3 class="blog-card__title">
@@ -80,16 +94,16 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
     <p class="blog-card__description">{description}</p>
 
     {
-      tags.length > 0 && (
+      safeTags.length > 0 && (
         <div class="blog-card__tags">
-          {tags.slice(0, 3).map((tag) => (
+          {safeTags.slice(0, 3).map((tag) => (
             <Tag name={tag} size="sm" />
           ))}
         </div>
       )
     }
 
-    <span class="blog-card__link" aria-hidden="true">Read more →</span>
+    <span class="blog-card__link" aria-hidden="true">Baca selengkapnya →</span>
   </div>
 </article>
 

@@ -6,15 +6,44 @@ import Footer from '@/components/common/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import PostGrid from '@/components/blog/PostGrid.astro';
 import Pagination from '@/components/blog/Pagination.astro';
-import { getPublishedPosts, type Post } from '@/lib/posts';
+import { getAllPosts } from '@/lib/db';
 import siteConfig from '@/site.config';
 
+function mapRowsToPosts(rows: any[]) {
+  return rows.map((post) => ({
+    id: post.id.toString(),
+    data: {
+      title: post.title,
+      description: post.excerpt,
+      pubDate: new Date(post.published_at),
+      heroImage: post.cover_image || undefined,
+      heroImageAlt: post.title,
+      tags: parseTags(post.tags),
+      featured: post.is_featured === 1,
+    },
+    body: post.content,
+    slug: post.slug,
+  }));
+}
+
+function parseTags(tags: string | null | undefined) {
+  if (!tags) return [];
+  try {
+    const parsed = JSON.parse(tags);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return String(tags)
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
+  }
+}
+
 export const getStaticPaths = (async () => {
-  const posts = await getPublishedPosts();
+  const posts = mapRowsToPosts(await getAllPosts());
   const perPage = siteConfig.blog.postsPerPage;
   const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
 
-  // Page 1 lives at /blog (index.astro); generate 2..totalPages here.
   const paths = [];
   for (let page = 2; page <= totalPages; page++) {
     paths.push({
@@ -30,7 +59,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 interface Props {
-  posts: Post[];
+  posts: any[];
   currentPage: number;
   totalPages: number;
 }
@@ -40,14 +69,14 @@ const { posts, currentPage, totalPages } = Astro.props;
 
 <BaseLayout
   title={`Blog — Page ${currentPage}`}
-  description="Insights, tutorials, and updates from the Astro Haze blog"
+  description="Semua panduan, checklist, dan cerita SeminarKit untuk acara seminar profesional."
 >
   <Header />
 
   <main id="main" tabindex="-1" class="main-content">
     <section class="section">
       <Container>
-        <h2 class="section-title">All Posts</h2>
+        <h2 class="section-title">Semua Artikel</h2>
         <PostGrid posts={posts} />
         <Pagination
           currentPage={currentPage}

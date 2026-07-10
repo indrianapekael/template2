@@ -3,7 +3,7 @@ import { Picture as AstroPicture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 export interface Props {
-  src: ImageMetadata | string;
+  src?: ImageMetadata | string;
   alt: string;
   width?: number;
   height?: number;
@@ -26,9 +26,10 @@ const {
   class: className,
 } = Astro.props;
 
-// Imported assets (ImageMetadata) are optimized to AVIF first, then WebP.
-// Plain string paths (public/ or remote) are rendered as-is.
-const isLocalAsset = typeof src !== 'string';
+// Validate and provide default alt text if needed
+const validAlt = alt && String(alt).trim() ? String(alt).trim() : 'Gambar';
+const hasSrc = src !== undefined && src !== null && (typeof src !== 'string' || String(src).trim() !== '');
+const isLocalAsset = hasSrc && typeof src !== 'string';
 
 // When a caller declares a responsive `sizes` but no explicit width list, emit
 // a sensible srcset. All shipped assets are ≥1448px wide, so these stay within
@@ -37,28 +38,32 @@ const resolvedWidths = widths ?? (sizes ? [400, 800, 1200] : undefined);
 ---
 
 {
-  isLocalAsset ? (
-    <AstroPicture
-      src={src as ImageMetadata}
-      alt={alt}
-      formats={['avif', 'webp']}
-      fallbackFormat="webp"
-      widths={resolvedWidths}
-      sizes={sizes}
-      loading={loading}
-      fetchpriority={fetchpriority}
-      class={className}
-    />
+  hasSrc ? (
+    isLocalAsset ? (
+      <AstroPicture
+        src={src as ImageMetadata}
+        alt={validAlt}
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+        widths={resolvedWidths}
+        sizes={sizes}
+        loading={loading}
+        fetchpriority={fetchpriority}
+        class={className}
+      />
+    ) : (
+      <img
+        src={src as string}
+        alt={validAlt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding="async"
+        fetchpriority={fetchpriority}
+        class={className}
+      />
+    )
   ) : (
-    <img
-      src={src as string}
-      alt={alt}
-      width={width}
-      height={height}
-      loading={loading}
-      decoding="async"
-      fetchpriority={fetchpriority}
-      class={className}
-    />
+    <div class={className} aria-hidden="true" />
   )
 }

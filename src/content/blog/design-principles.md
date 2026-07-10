@@ -1,83 +1,74 @@
 ---
-title: 'Design Principles Behind Astro Haze'
-description: 'Explore the design philosophy and principles that make Astro Haze a unique glassmorphism theme.'
-pubDate: 2024-01-20
+title: 'Prinsip Desain untuk SeminarKit'
+description: 'Pelajari prinsip desain yang mendukung pengalaman SeminarKit yang profesional, rapi, dan mudah dinavigasi.'
+pubDate: 2026-07-01
 heroImage: '../../assets/images/blog/design-principles.jpg'
-tags: ['design', 'glassmorphism', 'ui-ux']
-author: 'Sarah Chen'
+tags: ['seminar', 'perlengkapan', 'acara']
+author: 'Tim SeminarKit'
 featured: false
 ---
 
-The Astro Haze theme is built on several core design principles that create a cohesive and beautiful user experience. Let's explore these principles and how they shape the theme.
+SeminarKit dibuat untuk membantu penyelenggara seminar menghadirkan acara yang kelihatan profesional tanpa menambah beban operasional. Fokus kami adalah menyajikan informasi, perlengkapan, dan alur acara secara jelas.
 
-## Glassmorphism at its Core
+## Fokus pada kegunaan
 
-Glassmorphism is more than just a trend—it's a design language that creates depth and hierarchy through transparency and blur effects.
+Desain SeminarKit mendukung alur kerja acara dengan menjelaskan paket dan langkah operasional secara ringkas.
 
-### Key Elements
+### Elemen utama
 
-1. **Background Blur**: Creates the frosted glass effect
-2. **Transparency**: Allows content layering
-3. **Subtle Borders**: Defines edges with light strokes
-4. **Vivid Colors**: Enhanced through the glass effect
+1. **Deskripsi paket yang jelas**: Setiap paket menunjukkan manfaat dan isi utamanya.
+2. **Checklist acara**: Langkah-langkah operasional yang mudah diikuti.
+3. **Branding konsisten**: Opsi kustom membuat acara Anda mudah dikenali.
+4. **Materi peserta profesional**: Sertifikat, lencana, dan materi pendukung dirancang agar rapi.
 
-## Visual Hierarchy
+## Hierarki visual yang bersih
 
-We use several techniques to establish clear visual hierarchy:
+Kami menggunakan struktur visual yang sederhana untuk membantu tim fokus pada apa yang penting.
 
-- **Contrast**: Between glass panels and content
-- **Size**: Larger elements draw attention first
-- **Color**: Accent colors guide the eye
-- **Space**: Generous spacing improves readability
+- **Judul yang jelas** untuk setiap bagian paket.
+- **Teks penjelasan ringkas** untuk informasi inti.
+- **Kontras terukur** pada tombol dan label penting.
+- **Spasi yang lapang** agar konten tidak terasa padat.
 
-## Performance Considerations
+## Performa dan aksesibilitas
 
-While glassmorphism can be resource-intensive, we've optimized for performance:
+Website SeminarKit tetap cepat dan mudah diakses, termasuk pada perangkat mobile.
 
-```css
-/* Optimized glass effect */
-.glass {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  will-change: transform;
-}
-```
+### Rekomendasi desain
 
-### Performance Tips
+- Tampilkan informasi inti terlebih dahulu.
+- Gunakan tombol aksi yang mudah dikenali.
+- Pastikan gambar pendukung tidak mengalihkan perhatian.
+- Sediakan teks alternatif untuk semua gambar.
 
-- Limit the number of blurred elements
-- Use `will-change` sparingly
-- Provide fallbacks for older browsers
-- Optimize images with modern formats
+## Aksesibilitas yang nyata
 
-## Accessibility First
+SeminarKit mendukung peserta dan penyelenggara dengan:
 
-Beautiful design should be accessible to everyone:
+- **Kontras teks yang baik**
+- **Navigasi keyboard yang lancar**
+- **Label yang jelas**
+- **Preferensi motion yang dihormati**
 
-- **Color Contrast**: WCAG AA compliance
-- **Keyboard Navigation**: Full keyboard support
-- **Screen Readers**: Proper ARIA labels
-- **Reduced Motion**: Respects user preferences
+## Tampilan responsif
 
-## Responsive Design
+Konten SeminarKit dirancang agar tetap jelas di berbagai ukuran layar:
 
-The theme adapts seamlessly across devices:
+| Perangkat | Tujuan |
+|-----------|--------|
+| Ponsel | Informasi paket dan kontak tetap mudah diakses |
+| Tablet | Tampilan paket dan daftar artikel lebih luas |
+| Desktop | Galeri dan detail paket tampil lebih lengkap |
 
-| Breakpoint | Description |
-|------------|-------------|
-| Mobile | < 768px |
-| Tablet | 768px - 1024px |
-| Desktop | > 1024px |
+## Filosofi warna
 
-## Color Philosophy
+Sistem warna SeminarKit dirancang untuk mendukung identitas acara:
 
-Our color system is designed for flexibility:
+- **Primer**: Identitas merek utama
+- **Aksen**: Elemen interaksi
+- **Netral**: Latar dan konten utama
+- **Semantik**: Status sukses, peringatan, dan kesalahan
 
-- **Primary**: Brand identity
-- **Accent**: Interactive elements
-- **Neutral**: Content and backgrounds
-- **Semantic**: Success, warning, error states
+## Kesimpulan
 
-## Conclusion
-
-Astro Haze demonstrates that modern web design can be both beautiful and functional. By adhering to these principles, we've created a theme that's not just visually striking, but also performant, accessible, and user-friendly.
+SeminarKit menunjukkan bahwa perlengkapan seminar yang terstruktur bisa terlihat profesional sekaligus mudah digunakan. Dengan prinsip ini, Anda dapat menyajikan paket acara yang jelas, bisa diandalkan, dan siap dijalankan.

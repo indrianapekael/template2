@@ -4,29 +4,94 @@ import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
 import GlassPanel from '@/components/common/GlassPanel.astro';
 import Container from '@/components/ui/Container.astro';
-import { getPublishedPosts, collectTags } from '@/lib/posts';
 import { withBase } from '@/lib/url';
+import { getAllPosts } from '@/lib/db';
 
-const posts = await getPublishedPosts();
-const tags = collectTags(posts);
+function parseTags(tags: string | string[] | null | undefined) {
+  if (!tags) return [];
+
+  if (Array.isArray(tags)) {
+    return tags.map((tag) => String(tag).trim()).filter(Boolean);
+  }
+
+  const raw = String(tags).trim();
+  if (!raw) return [];
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed.map((tag) => String(tag).trim()).filter(Boolean);
+    }
+    if (typeof parsed === 'string') {
+      return [parsed.trim()].filter(Boolean);
+    }
+  } catch {
+    // ignore and fall back to manual parsing below
+  }
+
+  const quotedMatches = raw.match(/['"]([^'"]+)['"]/g) || [];
+  if (quotedMatches.length > 0) {
+    return quotedMatches.map((match) => match.replace(/^['"]|['"]$/g, '').trim()).filter(Boolean);
+  }
+
+  return raw
+    .split(/[,;]+/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
+
+function tagSlug(tag: string) {
+  return tag
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function collectTagsFromPosts(posts: any[]) {
+  const bySlug = new Map<string, { tag: string; count: number }>();
+  for (const post of posts) {
+    const tags = parseTags(post.tags);
+    const seen = new Set<string>();
+    for (const raw of tags) {
+      const slug = tagSlug(raw);
+      if (!slug || seen.has(slug)) continue;
+      seen.add(slug);
+      const existing = bySlug.get(slug);
+      if (existing) existing.count += 1;
+      else bySlug.set(slug, { tag: raw, count: 1 });
+    }
+  }
+  return [...bySlug.entries()]
+    .map(([slug, { tag, count }]) => ({ tag, slug, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+}
+
+let tags: any[] = [];
+try {
+  const posts = await getAllPosts();
+  tags = collectTagsFromPosts(posts);
+} catch (error) {
+  console.error('Error loading tags:', error);
+}
 const maxCount = tags.reduce((m, t) => Math.max(m, t.count), 1);
 ---
 
-<BaseLayout title="Tags" description="Browse all topics on the blog by tag.">
+<BaseLayout title="Tag" description="Jelajahi artikel SeminarKit berdasarkan topik dan jenis acara.">
   <Header />
 
   <main id="main" tabindex="-1" class="main-content">
     <section class="section">
       <Container size="md">
         <header class="tags-header">
-          <h1 class="tags-title">Tags</h1>
-          <p class="tags-subtitle">Browse posts by topic.</p>
+          <h1 class="tags-title">Tag</h1>
+          <p class="tags-subtitle">Temukan artikel berdasarkan topik seminar dan acara.</p>
         </header>
 
         {
           tags.length === 0 ? (
             <GlassPanel variant="default" padding="xl" className="empty">
-              <p>No tags yet.</p>
+              <p>Belum ada tag saat ini.</p>
             </GlassPanel>
           ) : (
             <GlassPanel variant="solid" padding="xl">

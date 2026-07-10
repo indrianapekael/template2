@@ -13,78 +13,77 @@ import Section from '@/components/ui/Section.astro';
 const showcases = [
   {
     index: '01',
-    type: 'Editorial',
-    title: 'Ideas with a place to unfold.',
-    description: 'A reading-first blog system with strong rhythm, calm metadata, and focused article pages.',
-    href: '/blog',
-    cta: 'Enter the journal',
+    type: 'Produk',
+    title: 'Paket Seminar Standar',
+    description: 'Paket lengkap untuk kebutuhan seminar kecil hingga menengah: tas, buku, sertifikat, dan ID card.',
+    href: '/landing',
+    cta: 'Lihat produk',
     className: 'showcase--journal',
   },
   {
     index: '02',
-    type: 'Selected work',
-    title: 'Case studies that show the thinking.',
-    description: 'A portfolio structure for outcomes, process, roles, and the details behind the final frame.',
+    type: 'Galeri',
+    title: 'Contoh paket dan penggunaan',
+    description: 'Galeri foto dan studi kasus penggunaan SeminarKit di acara nyata.',
     href: '/work',
-    cta: 'Browse selected work',
+    cta: 'Telusuri galeri',
     className: 'showcase--work',
   },
   {
     index: '03',
-    type: 'Campaign',
-    title: 'A landing page built to persuade quietly.',
-    description: 'Data-driven product storytelling with benefits, pricing, social proof, FAQ, and external calls to action.',
-    href: '/landing',
-    cta: 'Open the live demo',
+    type: 'Panduan',
+    title: 'Panduan penyelenggara seminar',
+    description: 'Panduan lengkap cara menyelenggarakan seminar yang profesional, mulai dari logistik hingga merchandise.',
+    href: '/blog',
+    cta: 'Baca panduan',
     className: 'showcase--landing',
   },
 ];
 ---
 
 <BaseLayout
-  title={`${siteConfig.name} — One system, three ways to publish`}
-  description="A production-ready Astro theme for editorial blogs, portfolios, and focused landing pages."
+  title={`${siteConfig.name} — Solusi Perlengkapan Seminar`}
+  description="SeminarKit: paket perlengkapan seminar siap pakai dan panduan penyelenggaraan."
 >
   <Header />
 
   <main id="main" tabindex="-1">
     <section class="home-hero">
       <Container size="xl">
-        <div class="home-hero__meta">
+        <!-- <div class="home-hero__meta">
           <span>Astro 7 theme system</span>
           <span>Edition 2026</span>
-        </div>
+        </div> -->
         <h1>
-          One atmosphere.<br />
-          <span>Three ways to publish.</span>
+          SeminarKit.<br />
+          <span>Perlengkapan Seminar Profesional.</span>
         </h1>
         <div class="home-hero__footer">
           <p>
-            Astro Haze is a modular showcase for thoughtful writing, selected work, and
-            focused campaigns—fast by default and expressive where it counts.
+            SeminarKit menyediakan solusi perlengkapan seminar yang praktis dan profesional untuk acara pendidikan, korporat, dan komunitas.
           </p>
           <div class="home-hero__actions">
-            <Button href="#showcase" variant="solid" size="lg">Explore the system</Button>
+            <Button href={withBase('/landing')} variant="solid" size="md">Lihat Paket</Button>
             {
               siteConfig.social.github && (
-                <Button href={siteConfig.social.github} external variant="outline" size="lg">
-                  View source <span aria-hidden="true">↗</span>
+                <Button href={siteConfig.social.github} external variant="outline" size="md">
+                  Sumber <span aria-hidden="true">↗</span>
                 </Button>
               )
             }
           </div>
         </div>
         <div class="home-hero__orbit" aria-hidden="true">
-          <span>Write</span><span>Show</span><span>Launch</span>
+          <span>Tulis</span><span>Tampilkan</span><span>Luncurkan</span>
         </div>
       </Container>
     </section>
 
     <Section
       id="showcase"
-      eyebrow="Choose your canvas"
-      title="Three complete starting points."
-      subtitle="Each preview shares the same accessible foundation while keeping its own pace, hierarchy, and purpose."
+      eyebrow="Produk Unggulan"
+      title="Paket Seminar Siap Pakai"
+      subtitle="Pilih paket sesuai kebutuhan acara Anda: standar, premium, atau kustom." 
       align="left"
       container="xl"
     >
@@ -104,11 +103,11 @@ const showcases = [
               <GlassCard padding="none" radius="xl" class="showcase__preview">
                 {item.index === '01' && (
                   <div class="preview preview--journal">
-                    <div class="preview__nav"><i></i><span>FIELD / NOTES</span><small>ISSUE 04</small></div>
+                    <div class="preview__nav"><i></i><span>Paket Standar</span><small>Siap kirim</small></div>
                     <div class="preview__editorial">
-                      <span>Design practice</span>
-                      <h3>Making space for the useful.</h3>
-                      <p>On restraint, rhythm, and the objects that earn a permanent place.</p>
+                      <span>Perlengkapan dasar</span>
+                      <h3>Semua kebutuhan seminar</h3>
+                      <p>Tas peserta, blocknote, pulpen, dan sertifikat dikemas rapi untuk acara Anda.</p>
                     </div>
                     <div class="preview__lines"><i></i><i></i><i></i></div>
                   </div>
@@ -116,19 +115,19 @@ const showcases = [
                 {item.index === '02' && (
                   <div class="preview preview--work">
                     <div class="preview__poster">
-                      <span>H / 02</span>
+                      <span>PRO / 02</span>
                       <div class="preview__shape"></div>
-                      <strong>Common<br />Ground</strong>
+                      <strong>Seminar<br />Kustom</strong>
                     </div>
-                    <div class="preview__caption"><span>Brand system</span><span>2026 ↗</span></div>
+                    <div class="preview__caption"><span>Branding</span><span>Rapi ↗</span></div>
                   </div>
                 )}
                 {item.index === '03' && (
                   <div class="preview preview--landing">
-                    <span class="preview__edition">EDITION 01</span>
+                    <span class="preview__edition">PAKET PREMIUM</span>
                     <div class="preview__object" aria-hidden="true"></div>
-                    <h3>Objects for slower,<br />better days.</h3>
-                    <span class="preview__button">VIEW COLLECTION ↗</span>
+                    <h3>Persiapan acara<br />yang profesional.</h3>
+                    <span class="preview__button">Lihat detail ↗</span>
                   </div>
                 )}
               </GlassCard>
@@ -142,25 +141,25 @@ const showcases = [
       <Container size="xl">
         <div>
           <span class="system-note__index">04 / FOUNDATION</span>
-          <h2>Built for the work after launch.</h2>
+          <h2>Dirancang untuk kelancaran acara.</h2>
         </div>
         <div class="system-note__grid">
-          <p><strong>Content Layer</strong><span>Typed collections for entries, projects, and campaign data.</span></p>
-          <p><strong>Responsive media</strong><span>AVIF-first local imagery with practical fallbacks.</span></p>
-          <p><strong>Accessible glass</strong><span>Focused effects, robust contrast, and transparency preferences.</span></p>
-          <p><strong>Minimal runtime</strong><span>Server-rendered pages and native interactions wherever possible.</span></p>
+          <p><strong>Lapisan Konten</strong><span>Data terstruktur untuk produk, proyek, dan materi acara.</span></p>
+          <p><strong>Media responsif</strong><span>Gambar modern dengan fallback praktis untuk semua perangkat.</span></p>
+          <p><strong>Aksesibilitas</strong><span>Efek terkontrol, kontras kuat, dan preferensi transparansi.</span></p>
+          <p><strong>Runtime minimal</strong><span>Halaman dirender server dan interaksi native untuk performa terbaik.</span></p>
         </div>
       </Container>
     </section>
 
     <section class="home-cta">
       <Container size="xl">
-        <p>Start with a structure. Make the atmosphere yours.</p>
-        <h2>Pick a page and begin.</h2>
+        <p>Mulai persiapan acara Anda dengan perlengkapan yang tepat.</p>
+        <h2>Pilih paket dan lengkapi seminar Anda.</h2>
         <div>
-          <Button href={withBase('/blog')} variant="outline" size="lg">Read</Button>
-          <Button href={withBase('/work')} variant="outline" size="lg">Show</Button>
-          <Button href={withBase('/landing')} variant="solid" size="lg">Launch</Button>
+          <Button href={withBase('/blog')} variant="outline" size="md">Panduan</Button>
+          <Button href={withBase('/work')} variant="outline" size="md">Galeri</Button>
+          <Button href={withBase('/landing')} variant="solid" size="md">Produk</Button>
         </div>
       </Container>
     </section>
@@ -179,7 +178,8 @@ const showcases = [
     min-height: min(54rem, calc(100vh - 5rem));
     display: grid;
     align-items: center;
-    padding-block: clamp(5rem, 12vw, 10rem);
+    padding-block: clamp(3rem, 8vw, 6rem);
+    overflow: hidden;
   }
 
   .home-hero__meta {
@@ -197,10 +197,10 @@ const showcases = [
   .home-hero h1 {
     position: relative;
     z-index: 1;
-    margin-block: clamp(3rem, 8vw, 6rem);
-    font-size: clamp(3.8rem, 10vw, 9.5rem);
-    line-height: 0.84;
-    letter-spacing: -0.075em;
+    margin: 0 0 clamp(2rem, 5vw, 3.5rem) 0;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.05em;
   }
 
   .home-hero h1 span {
@@ -209,35 +209,37 @@ const showcases = [
   }
 
   .home-hero__footer {
-    display: grid;
-    grid-template-columns: minmax(18rem, 1fr) auto;
-    align-items: end;
-    gap: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 55rem;
   }
 
   .home-hero__footer > p {
-    max-width: 40rem;
     margin: 0;
     color: var(--color-text-muted);
-    font-size: var(--text-lg);
+    font-size: clamp(var(--text-base), 2vw, var(--text-lg));
+    line-height: 1.7;
   }
 
   .home-hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
+    margin-top: var(--space-sm);
   }
 
   .home-hero__orbit {
     position: absolute;
-    top: 26%;
-    right: -4rem;
-    width: 24rem;
-    height: 24rem;
+    top: 50%;
+    right: -8rem;
+    width: 20rem;
+    height: 20rem;
     border: 1px solid var(--glass-border);
     border-radius: 50%;
     animation: slow-spin 24s linear infinite;
-    opacity: 0.55;
+    opacity: 0.35;
+    transform: translateY(-50%);
   }
 
   .home-hero__orbit::before {
@@ -259,9 +261,9 @@ const showcases = [
     font-weight: 700;
   }
 
-  .home-hero__orbit span:nth-child(1) { top: 3rem; left: 1rem; }
-  .home-hero__orbit span:nth-child(2) { top: 50%; right: -1rem; }
-  .home-hero__orbit span:nth-child(3) { bottom: 1rem; left: 5rem; }
+  .home-hero__orbit span:nth-child(1) { top: 1rem; left: 0.5rem; }
+  .home-hero__orbit span:nth-child(2) { top: 50%; right: -1.2rem; transform: translateY(-50%); }
+  .home-hero__orbit span:nth-child(3) { bottom: 2rem; left: 3rem; }
 
   .showcase-list {
     display: grid;
@@ -410,9 +412,9 @@ const showcases = [
     position: absolute;
     left: var(--space-xl);
     bottom: var(--space-xl);
-    font-size: clamp(3rem, 7vw, 6.5rem);
-    line-height: 0.78;
-    letter-spacing: -0.07em;
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
     z-index: 1;
   }
 

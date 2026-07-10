@@ -13,62 +13,62 @@ import { withBase } from '@/lib/url';
 const formats = [
   {
     number: '01',
-    label: 'Publish',
-    title: 'A journal with editorial rhythm.',
+    label: 'Produk',
+    title: 'Paket Seminar Siap Pakai',
     description:
-      'Long-form writing, tags, reading metadata, and thoughtful article layouts give ideas enough room to develop.',
-    href: '/blog',
+      'Paket lengkap dengan semua perlengkapan standar: tas seminar, blocknote, pulpen, sertifikat, dan ID card.',
+    href: '/landing',
   },
   {
     number: '02',
-    label: 'Present',
-    title: 'A portfolio that shows the thinking.',
+    label: 'Galeri',
+    title: 'Contoh acara dan tata letak',
     description:
-      'Project collections turn outcomes, process, roles, and technical decisions into clear, navigable case studies.',
+      'Galeri penggunaan produk SeminarKit dalam berbagai skenario acara.',
     href: '/work',
   },
   {
     number: '03',
-    label: 'Launch',
-    title: 'An EC landing page without the lock-in.',
+    label: 'Panduan',
+    title: 'Panduan penyelenggara seminar',
     description:
-      'Reusable sections cover benefits, editions, galleries, testimonials, FAQ, and external commerce calls to action.',
-    href: '/landing',
+      'Artikel dan checklist praktis untuk menyelenggarakan seminar yang rapi dan profesional.',
+    href: '/blog',
   },
 ];
 
 const stack = [
   {
-    name: 'Astro 7',
-    category: 'Framework',
-    detail: 'Static-first rendering with a deliberately small browser runtime.',
+    name: 'SeminarKit Paket',
+    category: 'Produk',
+    detail: 'Paket disusun untuk memudahkan penyelenggaraan seminar, lengkap dan praktis.',
   },
   {
-    name: 'Content Layer',
-    category: 'Content',
-    detail: 'Typed, validated collections for articles, projects, and campaign data.',
+    name: 'Kustomisasi',
+    category: 'Layanan',
+    detail: 'Opsi branding & kustom untuk menyesuaikan logo, warna, dan materi promosi.',
   },
   {
-    name: 'Sätteri',
-    category: 'Markdown',
-    detail: 'Astro’s modern Markdown pipeline for dependable authoring and output.',
+    name: 'Panduan Operasional',
+    category: 'Panduan',
+    detail: 'Checklist pra-acara, logistik, dan tips pemasaran untuk peserta dan penyelenggara.',
   },
   {
-    name: 'Glass system',
-    category: 'Interface',
-    detail: 'Focused translucent surfaces, restrained depth, and solid fallbacks.',
+    name: 'Kualitas Bahan',
+    category: 'Standar',
+    detail: 'Material terpilih untuk kenyamanan peserta dan tampilan profesional.',
   },
   {
-    name: 'Accessible by design',
-    category: 'Foundation',
-    detail: 'Semantic structure, visible focus, native controls, and preference-aware motion.',
+    name: 'Dukungan Pelanggan',
+    category: 'Layanan',
+    detail: 'Tim bantuan siap membantu pemesanan, pengiriman, dan kustomisasi.',
   },
 ];
 ---
 
-<BaseLayout
-  title={`About | ${siteConfig.name}`}
-  description={`${siteConfig.name} is a modular Astro 7 theme for publishing stories, projects, and focused landing pages.`}
+  <BaseLayout
+  title={`Tentang | ${siteConfig.name}`}
+  description={`${siteConfig.name} menyediakan paket perlengkapan seminar siap pakai untuk berbagai kebutuhan acara.`}
 >
   <Header />
 
@@ -77,23 +77,21 @@ const stack = [
       <Container size="xl">
         <GlassPanel variant="solid" padding="xl" radius="xl" className="about-hero__panel">
           <div class="about-hero__meta">
-            <span>About the system</span>
-            <span>Open source · Astro 7</span>
+            <span>Tentang sistem</span>
+            <span>SeminarKit · Perlengkapan seminar</span>
           </div>
 
           <div class="about-hero__body">
             <div class="about-hero__title">
-              <p>Designed by {siteConfig.author}</p>
-              <h1>A quiet framework for expressive work.</h1>
+              <p>Dipersembahkan oleh {siteConfig.author}</p>
+              <h1>Solusi Perlengkapan Seminar yang Praktis dan Profesional.</h1>
             </div>
             <div class="about-hero__statement">
               <p>
-                {siteConfig.name} is a multi-purpose theme built around one belief:
-                strong structure should make creative choices easier, not narrower.
+                SeminarKit dirancang untuk memudahkan penyelenggara seminar: paket komprehensif, opsi kustom, dan dukungan operasional.
               </p>
               <p>
-                It combines editorial hierarchy, typed content, accessible interaction,
-                and carefully limited glass effects into a foundation meant to be changed.
+                Kami menyediakan produk berkualitas dan panduan lengkap agar acara berjalan lancar dan berkesan.
               </p>
             </div>
           </div>
@@ -103,12 +101,12 @@ const stack = [
             <div class="about-hero__actions">
               {
                 siteConfig.social.github && (
-                  <Button href={siteConfig.social.github} external variant="solid" size="lg">
-                    View on GitHub <span aria-hidden="true">↗</span>
+                  <Button href={siteConfig.social.github} external variant="solid" size="md">
+                    Lihat di GitHub <span aria-hidden="true">↗</span>
                   </Button>
                 )
               }
-              <Button href={withBase('/landing')} variant="outline" size="lg">See the live demo</Button>
+              <Button href={withBase('/landing')} variant="outline" size="md">Lihat demo</Button>
             </div>
           </div>
         </GlassPanel>
@@ -116,9 +114,9 @@ const stack = [
     </section>
 
     <Section
-      eyebrow="One system, three formats"
-      title="Built around what you need to say."
-      subtitle="Start with a complete publishing model, then remove, reorder, and restyle until it belongs to the work."
+      eyebrow="Satu sistem, tiga format"
+      title="Dirancang sesuai kebutuhan acara Anda."
+      subtitle="Mulai dengan paket siap pakai, lalu sesuaikan bagian yang diperlukan untuk acara Anda."
       align="left"
       container="xl"
     >
@@ -132,7 +130,7 @@ const stack = [
               </div>
               <h2>{format.title}</h2>
               <p>{format.description}</p>
-              <span class="format-card__link">Explore format <i aria-hidden="true">↗</i></span>
+              <span class="format-card__link">Telusuri <i aria-hidden="true">↗</i></span>
             </GlassCard>
           ))
         }
@@ -141,16 +139,16 @@ const stack = [
 
     <section class="principle">
       <Container size="xl">
-        <p class="principle__index">The principle / 04</p>
+        <p class="principle__index">Prinsip / 04</p>
         <blockquote>
-          Atmosphere should support the content,
-          <span>never compete with it.</span>
+          Tampilan harus mendukung konten,
+          <span>tidak bersaing dengannya.</span>
         </blockquote>
         <div class="principle__note">
           <span class="principle__mark" aria-hidden="true">✦</span>
           <p>
-            Glass appears only where it clarifies grouping or depth. Everywhere else,
-            type, spacing, and borders do the quieter work.
+            Efek glass hanya digunakan untuk memperjelas kelompok atau kedalaman. Di tempat lain,
+            tipografi, spasi, dan batas yang bekerja lebih halus.
           </p>
         </div>
       </Container>
@@ -181,26 +179,25 @@ const stack = [
     <section class="about-cta">
       <Container size="xl">
         <div class="about-cta__copy">
-          <p>Fork the foundation</p>
-          <h2>Make the haze your own.</h2>
+          <p>Gunakan sebagai dasar</p>
+          <h2>Bentuk SeminarKit sesuai kebutuhan Anda.</h2>
         </div>
         <div class="about-cta__aside">
           <p>
-            Use the theme as a starting point for your next publication, portfolio,
-            or campaign—then shape the system around your own voice.
+            Mulai dari paket dasar lalu kembangkan desain, materi, dan branding sesuai acara Anda.
           </p>
           <div>
             {
               siteConfig.social.github && (
-                <Button href={siteConfig.social.github} external variant="solid" size="lg">
-                  Get the source <span aria-hidden="true">↗</span>
+                <Button href={siteConfig.social.github} external variant="solid" size="md">
+                  Dapatkan sumber <span aria-hidden="true">↗</span>
                 </Button>
               )
             }
             {
               siteConfig.social.twitter && (
-                <Button href={siteConfig.social.twitter} external variant="outline" size="lg">
-                  Follow updates
+                <Button href={siteConfig.social.twitter} external variant="outline" size="md">
+                  Ikuti pembaruan
                 </Button>
               )
             }

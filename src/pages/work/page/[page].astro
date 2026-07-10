@@ -1,7 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import { getAllProjects } from '@/lib/db';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
@@ -9,9 +8,9 @@ import WorkArchive from '@/components/portfolio/WorkArchive.astro';
 import siteConfig from '@/site.config';
 
 export const getStaticPaths = (async () => {
-  const projects = (await getCollection('projects')).sort((a, b) => {
-    if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
-    return b.data.year - a.data.year;
+  const projects = (await getAllProjects()).sort((a, b) => {
+    if ((a.featured ? 1 : 0) !== (b.featured ? 1 : 0)) return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+    return (b.year || 0) - (a.year || 0);
   });
   const perPage = Math.max(1, Math.floor(siteConfig.portfolio.projectsPerPage));
   const totalPages = Math.max(1, Math.ceil(projects.length / perPage));
@@ -34,7 +33,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 interface Props {
-  projects: CollectionEntry<'projects'>[];
+  projects: any[];
   totalProjects: number;
   currentPage: number;
   totalPages: number;
@@ -46,7 +45,7 @@ const { projects, totalProjects, currentPage, totalPages, perPage } = Astro.prop
 
 <BaseLayout
   title={`Work — Page ${currentPage}`}
-  description="Selected product, brand, and digital experience work from Astro Haze."
+  description="Galeri paket SeminarKit dan contoh penggunaan di acara nyata."
 >
   <Header />
 

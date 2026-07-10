@@ -1,12 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import Container from '@/components/ui/Container.astro';
 import Pagination from '@/components/blog/Pagination.astro';
 import { withBase } from '@/lib/url';
 import ProjectCard from './ProjectCard.astro';
 
 export interface Props {
-  projects: CollectionEntry<'projects'>[];
+  projects: any[];
   totalProjects: number;
   currentPage: number;
   totalPages: number;
@@ -16,17 +15,54 @@ export interface Props {
 }
 
 const {
-  projects,
-  totalProjects,
-  currentPage,
-  totalPages,
-  perPage,
-  showTechStack,
-  showYear,
+  projects = [],
+  totalProjects = 0,
+  currentPage = 1,
+  totalPages = 1,
+  perPage = 12,
+  showTechStack = false,
+  showYear = false,
 } = Astro.props;
 
-const technologyCounts = projects
-  .flatMap((project) => project.data.tech)
+const safeProjects = Array.isArray(projects) ? projects : [];
+
+function parseTechValue(value: any): string[] {
+  if (Array.isArray(value)) return value.map((item) => String(item));
+  if (typeof value === 'string') {
+    var raw = value.trim();
+    if (!raw) return [];
+    try {
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.map((item) => String(item));
+    } catch (e) {
+      // not JSON, fall through to comma-separated parsing
+    }
+    return raw.split(',').map((item) => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+const normalizedProjects = safeProjects.map((project) => {
+  const isContentEntry = project && project.data;
+  const data = isContentEntry ? project.data : project;
+  const tech = parseTechValue(data.tech ?? []);
+
+  return {
+    id: isContentEntry ? project.id : project.id,
+    title: data.title || project.title,
+    summary: data.summary || data.excerpt || project.summary || project.excerpt || '',
+    cover: data.cover ?? data.cover_image ?? project.cover ?? project.cover_image,
+    coverAlt: data.coverAlt ?? data.cover_alt ?? data.title ?? project.title,
+    tech,
+    role: data.role || project.role || '',
+    year: data.year ?? project.year ?? 0,
+    featured: data.featured || data.is_featured || false,
+    href: withBase(`/work/${isContentEntry ? project.id : project.slug || project.id}`),
+  };
+});
+
+const technologyCounts = normalizedProjects
+  .flatMap((project) => project.tech)
   .reduce<Map<string, number>>((counts, item) => {
     counts.set(item, (counts.get(item) ?? 0) + 1);
     return counts;
@@ -43,8 +79,8 @@ const filters = [...technologyCounts]
 const showFilters = showTechStack && totalPages <= 1 && filters.length > 0;
 
 const indexOffset = (currentPage - 1) * perPage;
-const rangeStart = projects.length > 0 ? indexOffset + 1 : 0;
-const rangeEnd = indexOffset + projects.length;
+const rangeStart = safeProjects.length > 0 ? indexOffset + 1 : 0;
+const rangeEnd = indexOffset + safeProjects.length;
 ---
 
 <section class="work-hero" aria-labelledby="work-title">
@@ -54,13 +90,12 @@ const rangeEnd = indexOffset + projects.length;
     </div>
     <div class="work-hero__content">
       <p class="work-hero__eyebrow">
-        Selected case files{showYear && ' / 2022—2026'}
-        {totalPages > 1 && ` / Page ${currentPage} of ${totalPages}`}
+        Arsip proyek{showYear && ' / 2022—2026'}
+        {totalPages > 1 && ` / Halaman ${currentPage} dari ${totalPages}`}
       </p>
-      <h1 id="work-title">Work shaped around <em>real use.</em></h1>
+      <h1 id="work-title">Galeri paket digunakan dalam <em>acara nyata</em>.</h1>
       <p class="work-hero__intro">
-        Digital products and identities made legible, useful, and distinctly human.
-        Each case starts with the constraint—not the decoration.
+        Proyek dan contoh penggunaan yang menampilkan paket SeminarKit dalam situasi nyata.
       </p>
     </div>
   </Container>
@@ -70,14 +105,14 @@ const rangeEnd = indexOffset + projects.length;
   <Container size="xl">
     <div class="project-index__bar">
       <div>
-        <p class="project-index__label">Archive / {String(totalProjects).padStart(2, '0')} cases</p>
-        <h2 id="project-index-title">Selected projects</h2>
+        <p class="project-index__label">Galeri / {String(totalProjects).padStart(2, '0')} paket</p>
+        <h2 id="project-index-title">Contoh penggunaan paket</h2>
       </div>
 
-      {showFilters && (
+        {showFilters && (
         <div class="filters" role="group" aria-label="Filter projects by technology">
           <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">
-            All
+            Semua
           </button>
           {filters.map((filter) => (
             <button class="filter" type="button" data-filter={filter} aria-pressed="false">
@@ -90,25 +125,25 @@ const rangeEnd = indexOffset + projects.length;
 
     <p class="filter-status sr-only" aria-live="polite"></p>
 
-    {projects.length > 0 ? (
+    {normalizedProjects.length > 0 ? (
       <>
         <div class="project-grid">
-          {projects.map((project, index) => (
+          {normalizedProjects.map((project, index) => (
             <div
-              class:list={['project-shell', { 'project-shell--featured': project.data.featured }]}
-              data-technologies={showTechStack ? JSON.stringify(project.data.tech) : undefined}
+              class:list={['project-shell', { 'project-shell--featured': project.featured }]}
+              data-technologies={showTechStack ? JSON.stringify(project.tech) : undefined}
             >
               <ProjectCard
-                title={project.data.title}
-                summary={project.data.summary}
-                cover={project.data.cover}
-                coverAlt={project.data.coverAlt}
-                tech={project.data.tech}
-                role={project.data.role}
-                year={project.data.year}
-                href={withBase(`/work/${project.id}`)}
+                title={project.title}
+                summary={project.summary}
+                cover={project.cover}
+                coverAlt={project.coverAlt}
+                tech={project.tech}
+                role={project.role}
+                year={project.year}
+                href={project.href}
                 index={indexOffset + index + 1}
-                featured={project.data.featured}
+                featured={project.featured}
                 showTechStack={showTechStack}
                 showYear={showYear}
               />
@@ -118,7 +153,7 @@ const rangeEnd = indexOffset + projects.length;
         <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/work" />
       </>
     ) : (
-      <p class="empty-state">The archive is being assembled. Check back soon.</p>
+      <p class="empty-state">Galeri paket sedang disusun. Silakan kunjungi kembali nanti.</p>
     )}
   </Container>
 </section>

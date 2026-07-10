@@ -1,50 +1,47 @@
 ---
-title: 'Getting Started with Astro Haze'
-description: 'Learn how to quickly set up and customize the Astro Haze glassmorphism theme for your next project.'
-pubDate: 2024-01-15
+title: 'Memulai dengan SeminarKit'
+description: 'Panduan cepat untuk memahami struktur konten dan menyesuaikan SeminarKit dengan acara Anda.'
+pubDate: 2026-07-01
 heroImage: '../../assets/images/blog/getting-started.jpg'
-tags: ['astro', 'tutorial', 'getting-started']
-author: 'Alex Johnson'
+tags: ['seminar', 'panduan', 'setup']
+author: 'Tim SeminarKit'
 featured: true
 ---
 
-Welcome to **Astro Haze**, a beautiful glassmorphism theme for Astro that combines modern design with exceptional performance. This guide will help you get started with your new theme.
+Selamat datang di SeminarKit. Panduan ini membantu Anda memahami struktur halaman, paket, dan cara menyesuaikan penawaran untuk acara Anda.
 
-## Quick Start
+## Mulai cepat
 
-Getting started with Astro Haze is straightforward:
+Untuk melihat konten SeminarKit secara lokal, jalankan perintah berikut:
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/astro-haze.git
+# Masuk ke folder proyek
+cd seminar-kit
 
-# Navigate to the project
-cd astro-haze
-
-# Install dependencies
+# Pasang dependensi
 npm install
 
-# Start the development server
+# Jalankan server pengembangan
 npm run dev
 ```
 
-Your site will be available at `http://localhost:3000`.
+Buka `http://localhost:3000` untuk melihat tampilan awal situs.
 
-## Project Structure
+## Struktur proyek
 
 ```
-astro-haze/
+seminar-kit/
 ├── src/
-│   ├── components/    # Reusable components
-│   ├── content/       # Blog posts, projects, etc.
-│   ├── layouts/       # Page layouts
-│   ├── pages/         # Route pages
-│   └── styles/        # Global styles and tokens
-├── public/            # Static assets
-└── astro.config.mjs   # Astro configuration
+│   ├── components/    # Komponen UI yang dapat digunakan ulang
+│   ├── content/       # Artikel, produk, dan data galeri
+│   ├── layouts/       # Tata letak halaman
+│   ├── pages/         # Rute halaman utama
+│   └── styles/        # Variabel warna dan gaya global
+├── public/            # Aset statis seperti gambar
+└── astro.config.mjs   # Konfigurasi Astro
 ```
 
-## Customization
+## Menyesuaikan konten
 
 ### Theme Colors
 
@@ -60,31 +57,29 @@ The theme uses CSS custom properties for easy customization. Edit `src/styles/to
 
 ### Site Configuration
 
-Update your site details in `src/site.config.ts`:
+Sesuaikan nama dan deskripsi di `src/site.config.ts`:
 
 ```typescript
 export default {
-  name: 'Your Site Name',
-  title: 'Your Site Title',
-  description: 'Your site description',
-  // ... more options
+  name: 'SeminarKit',
+  title: 'SeminarKit — Perlengkapan Seminar Profesional',
+  description: 'SeminarKit menyediakan paket perlengkapan seminar lengkap untuk acara Anda.',
+  // ... opsi lainnya
 };
 ```
 
-## Features
+## Fitur utama
 
-- **Glassmorphism Design**: Beautiful frosted glass effects throughout
-- **Dark/Light Mode**: Automatic theme switching with user preference
-- **Blog System**: Full-featured blog with MDX support
-- **Portfolio**: Showcase your projects with style
-- **Landing Pages**: Convert visitors with stunning pages
-- **SEO Optimized**: Built-in SEO features and meta tags
-- **Performance**: Lighthouse score 95+ on all metrics
+- **Paket seminar siap pakai**: Paket terstruktur untuk acara kecil hingga besar
+- **Panduan acara**: Artikel dan checklist operasional
+- **Galeri penggunaan**: Contoh paket dalam acara nyata
+- **Konten fleksibel**: Data mudah disesuaikan tanpa mengubah markup
+- **Performa cepat**: Render server dengan JavaScript minimal
 
-## Next Steps
+## Langkah berikutnya
 
-- Explore [Astro component syntax](https://docs.astro.build/en/basics/astro-components/)
-- Learn about [Astro content collections](https://docs.astro.build/en/guides/content-collections/)
-- Check out [Astro deployment options](https://docs.astro.build/en/guides/deploy/)
+- Perbarui data paket di `src/content/landing/demo.json`
+- Tambahkan artikel baru untuk topik acara
+- Sesuaikan halaman produk dan galeri dengan koleksi Anda
 
-Happy building with Astro Haze!
+SeminarKit dirancang untuk membantu tim Anda fokus pada penyelenggaraan acara yang sukses.
